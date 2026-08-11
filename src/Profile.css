@@ -1,0 +1,141 @@
+.profile-layout {
+  min-height: 100vh;
+  background: #f7f8fc;
+}
+
+.profile-content {
+  margin-left: 260px;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+/* PROFILE CARD */
+.profile-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 35px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 700;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto 20px;
+}
+
+.profile-card h2 {
+  margin-bottom: 8px;
+}
+
+.profile-card p {
+  color: #777;
+}
+
+/* STATS */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 30px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card h3 {
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.stat-card span {
+  font-size: 36px;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+/* ACTIVITY */
+.activity-card {
+  margin: 30px auto 0;
+  background: #fff;
+  border-radius: 18px;
+  padding: 25px;
+  max-width: 900px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.activity-card h3 {
+  margin-bottom: 20px;
+}
+
+.activity-item {
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+  color: #555;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+/* LOGOUT */
+.logout-btn {
+  margin-top: 30px;
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  background: #dc2626;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 767px) {
+  .profile-content {
+    margin-left: 0 !important;
+    padding: 75px 20px 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .profile-layout {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}

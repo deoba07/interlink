@@ -1,0 +1,261 @@
+.opportunities-layout {
+    display: flex;
+    min-height: 100vh;
+    background: #f9fafb;
+}
+
+/* CONTENT AREA */
+.opportunities-content {
+    margin-left: 260px;
+    padding: 30px;
+    flex: 1;
+}
+
+/* SEARCH BAR */
+.search-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    width: fit-content;
+}
+
+.search-bar input {
+    padding: 10px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    outline: none;
+}
+
+.search-bar button {
+    padding: 10px 16px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* CARDS */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    transition: 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+/* PAGINATION */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.pagination button {
+    padding: 8px 12px;
+    border: none;
+    background: #111827;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.pagination button:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+}
+
+
+
+
+.no-results {
+  grid-column: 1 / -1;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+  margin: 20px 0;
+ 
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.no-results h3 {
+  margin: 0 0 10px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.no-results p {
+  max-width: 500px;
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #6b7280;
+}
+
+.no-results-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background: #f3f4f6;
+  font-size: 24px;
+}
+
+
+
+
+
+
+
+
+
+/* =========================
+   MOBILE RESPONSIVENESS
+   ========================= */
+
+@media (max-width: 767px) {
+
+  .opportunities-layout {
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* CONTENT */
+  .opportunities-content {
+    margin-left: 0 !important;
+    padding: 20px 15px;
+    width: 100%;
+  }
+
+
+  /* SEARCH BAR */
+  .search-bar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 25px;
+  }
+
+  .search-bar input {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .search-bar button {
+    width: 100%;
+    padding: 12px;
+  }
+
+
+  /* INTERNSHIP CARDS */
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .card {
+    width: 100%;
+    min-width: 0;
+    padding: 15px;
+  }
+
+
+  /* PAGINATION */
+  .pagination {
+    width: 100%;
+    gap: 10px;
+    margin-top: 25px;
+    padding-bottom: 20px;
+  }
+
+  .pagination button {
+    padding: 9px 12px;
+  }
+
+  .pagination span {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+
+  /* NO RESULTS */
+  .no-results {
+    width: 100%;
+    min-height: 250px;
+    padding: 30px 15px;
+  }
+
+  .no-results h3 {
+    font-size: 1.2rem;
+  }
+
+  .no-results p {
+    font-size: 0.9rem;
+  }
+}
+
+
+/* =========================
+   SMALL PHONES
+   ========================= */
+
+@media (max-width: 400px) {
+
+  .opportunities-content {
+    padding: 15px 10px;
+  }
+
+  .pagination {
+    gap: 6px;
+  }
+
+  .pagination button {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  .pagination span {
+    font-size: 12px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+

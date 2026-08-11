@@ -1,0 +1,388 @@
+/* ==========================================
+   MAIN STRUCTURE
+   ========================================== */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 1rem;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    box-sizing: border-box;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Minimize layout structure neatly */
+.sidebar.collapsed {
+    width: 78px;
+    padding: 1.5rem 0.5rem;
+}
+
+/* ==========================================
+   HEADER / ALIGNMENT CONTROLS
+   ========================================== */
+.sidebar-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+/* Instead of margins, use cross-axis alignment to center rows instantly */
+.sidebar.collapsed .sidebar-header,
+.sidebar.collapsed .sidebar-section {
+    align-items: center;
+    transform:translateX(-10px);
+    
+}
+
+.collapse-btn {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    color: #4b5563;
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.collapse-btn:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 44px;
+    width: 100%;
+    padding-left: 0.5rem;
+}
+
+.sidebar.collapsed .sidebar-logo {
+    padding-left: 0;
+    justify-content: center;
+}
+
+.sidebar-logo i {
+    font-size: 1.3rem;
+    color: #4b5563;
+    min-width: 24px;
+    text-align: center;
+}
+
+.sidebar-logo h2 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+/* ==========================================
+   NAVIGATION SECTIONS & LINKS
+   ========================================== */
+.sidebar-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    gap: 0.35rem;
+    width: 100%;
+}
+
+.section-title {
+    font-size: 0.65rem;
+    color: #9ca3af;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    padding-left: 0.5rem;
+    margin-bottom: 0.35rem;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
+}
+
+.sidebar.collapsed .section-title {
+    opacity: 0;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0.75rem 0.75rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #4b5563;
+    font-weight: 500;
+    font-size: 0.95rem;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+
+}
+
+.sidebar-link:focus {
+    outline: none;
+}
+
+.sidebar-link:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+.sidebar-link i {
+    font-size: 1.15rem;
+    min-width: 24px;
+    text-align: center;
+    transition:transform .25s ease;
+}
+
+.sidebar-link:hover {
+    background: #f3f4f6;
+    color: #111827;
+    transform:scale(1.08);
+}
+
+.sidebar-link.active {
+    background: #eff6ff;
+    color: #2563eb;
+    font-weight: 600;
+}
+
+/* ==========================================
+   SMOOTH TRANSITIONS (NO SNAPPING)
+   ========================================== */
+.fade-text {
+    opacity: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
+     cursor: pointer;
+}
+
+
+.fade-text a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.sidebar.collapsed .fade-text {
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    display: none; /* Safely kills the bounding box so elements layout-center cleanly */
+}
+
+/* Formats the button container shape perfectly when minimized */
+.sidebar.collapsed .sidebar-link {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    justify-content: center;
+}
+
+/* ==========================================
+   SIMPLE CSS-ONLY TOOLTIPS
+   ========================================== */
+.sidebar-link .tooltip {
+    position: absolute;
+    left: 54px;
+    background: #111827;
+    color: #ffffff;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    
+    /* Hide by default */
+    opacity: 0;
+    display: none;
+    pointer-events: none;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Show cleanly only when hovered AND minimized */
+.sidebar.collapsed .sidebar-link:hover .tooltip {
+    opacity: 1;
+    display: block;
+}
+
+/* Little Arrow pointer */
+.sidebar.collapsed .tooltip::before {
+    content: "";
+    position: absolute;
+    left: -4px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    width: 8px;
+    height: 8px;
+    background: #111827;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================
+   MOBILE SIDEBAR
+========================= */
+
+.mobile-menu-btn {
+    display: none;
+}
+
+.sidebar-overlay {
+    display: none;
+}
+
+.mobile-close-btn {
+    display: none;
+}
+
+@media (max-width: 767px) {
+
+    /* Hamburger button */
+    .mobile-menu-btn {
+        display: flex;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        width: 44px;
+        height: 44px;
+        align-items: center;
+        justify-content: center;
+
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+
+        font-size: 24px;
+        color: #111827;
+
+        cursor: pointer;
+
+        z-index: 2000;
+    }
+
+    .mobile-menu-btn:hover {
+        background: #f3f4f6;
+    }
+
+
+    /* Sidebar is CLOSED by default on mobile */
+    .sidebar {
+        width: 260px;
+        height: 100vh;
+
+        position: fixed;
+        left: 0;
+        top: 0;
+
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+
+        z-index: 2001;
+
+        padding: 1.5rem 1rem;
+
+        box-sizing: border-box;
+    }
+
+
+    /* Sidebar OPEN on mobile */
+    .sidebar.mobile-open {
+        transform: translateX(0);
+    }
+
+
+    /* Ignore desktop collapsed state on mobile */
+    .sidebar.collapsed {
+        width: 260px;
+        padding: 1.5rem 1rem;
+
+        transform: translateX(-100%);
+    }
+
+    .sidebar.collapsed.mobile-open {
+        transform: translateX(0);
+    }
+
+
+    /* Restore normal sidebar content on mobile */
+    .sidebar.collapsed .sidebar-header,
+    .sidebar.collapsed .sidebar-section {
+        align-items: initial;
+        transform: none;
+    }
+
+    .sidebar.collapsed .fade-text {
+        opacity: 1;
+        pointer-events: auto;
+        width: auto;
+        height: auto;
+        overflow: visible;
+        display: inline;
+    }
+
+    .sidebar.collapsed .section-title {
+        opacity: 1;
+    }
+
+    .sidebar.collapsed .sidebar-link {
+        width: 100%;
+        height: auto;
+        padding: 0.75rem;
+        justify-content: flex-start;
+    }
+
+    .sidebar.collapsed .sidebar-logo {
+        padding-left: 0.5rem;
+        justify-content: flex-start;
+    }
+
+
+    /* Dark background behind sidebar */
+    .sidebar-overlay {
+        display: block;
+
+        position: fixed;
+        inset: 0;
+
+        background: rgba(0, 0, 0, 0.35);
+
+        z-index: 2000;
+    }
+}

@@ -1,0 +1,187 @@
+.details-layout{
+    display:flex;
+    min-height:100vh;
+    background:#f5f7fb;
+}
+
+.details-content{
+    flex:1;
+    padding:45px;
+}
+
+.back-link{
+    text-decoration:none;
+    color:#2563eb;
+    font-weight:600;
+}
+
+.details-header{
+    margin-top:30px;
+    background:white;
+    border-radius:18px;
+    padding:30px;
+    display:flex;
+    align-items:center;
+    gap:25px;
+    box-shadow:0 8px 30px rgba(0,0,0,.06);
+}
+
+.company-logo{
+    width:100px;
+    height:100px;
+    border-radius:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#eef4ff;
+    overflow:hidden;
+}
+
+.company-logo img{
+    width:80px;
+    height:80px;
+    object-fit:contain;
+}
+
+.company-initials{
+    font-size:34px;
+    font-weight:bold;
+    color:#2563eb;
+}
+
+.header-info h1{
+    font-size:36px;
+    margin-bottom:8px;
+    color:#0f172a;
+}
+
+.header-info h3{
+    color:#475569;
+    margin-bottom:10px;
+}
+
+.header-info p{
+    color:#64748b;
+}
+
+.action-buttons{
+    display:flex;
+    gap:18px;
+    margin:30px 0;
+}
+
+.apply-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:10px;
+    padding:14px 28px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.apply-btn:hover{
+    background:#1d4ed8;
+}
+
+.save-btn{
+    background:white;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    padding:14px 28px;
+    cursor:pointer;
+}
+
+.details-card{
+    background:white;
+    border-radius:18px;
+    padding:28px;
+    margin-bottom:24px;
+    box-shadow:0 8px 30px rgba(0,0,0,.05);
+}
+
+.details-card h2{
+    margin-bottom:18px;
+    color:#0f172a;
+}
+
+.details-card p{
+    color:#475569;
+    line-height:1.8;
+}
+
+.details-card a{
+    color:#2563eb;
+    text-decoration:none;
+}
+
+.details-card a:hover{
+    text-decoration:underline;
+}
+
+.bullet-list{
+    padding-left:20px;
+}
+
+.bullet-list li{
+    margin-bottom:12px;
+    line-height:1.7;
+    color:#475569;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 767px) {
+    .details-layout {
+        display: block;
+        width: 100%;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    .details-content {
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0 !important;
+        padding: 20px 15px;
+        box-sizing: border-box;
+    }
+
+    .details-header {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .details-card {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .action-buttons {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .apply-btn,
+    .save-btn {
+        box-sizing: border-box;
+    }
+}

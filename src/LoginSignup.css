@@ -1,0 +1,398 @@
+/* ==========================================================================
+   PAGE BACKGROUND (FULL SCREEN IMAGE VIEWPORT ENGINE)
+   ========================================================================== */
+.auth-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e2e8f0; /* Perfect light slate base matching the mockup */
+  font-family: system-ui, -apple-system, sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Stretches the image asset across the entire monitor screen background */
+.auth-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  
+  background-image: url('./assets/Formbg.png'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /* Kept at full strength so the graphic remains crisp across the desktop */
+  opacity: 1; 
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   MAIN INTERACTIVE CONTAINER CARD
+   ========================================================================== */
+.auth-container {
+  width: 100%;
+  max-width: 900px;
+  height: 540px;
+  position: relative; 
+  z-index: 5; /* Hovers cleanly over the background graphics */
+  display: flex;
+  overflow: hidden;
+  border-radius: 24px; /* Slightly softer corners matching the mockup */
+  box-shadow: 0 30px 70px rgba(15, 23, 42, 0.12);
+  background: #ffffff; /* Crisp solid white container matching the design layout */
+}
+
+/* ==========================================================================
+   FORM COLUMN CONTROLLERS 
+   ========================================================================== */
+.form-column {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  position: relative;
+  background: #ffffff;
+  transition: opacity 0.4s ease, transform 0.5s ease; 
+}
+
+/* ==========================================================================
+   FORM COMPONENTS & INPUT TYPOGRAPHY
+   ========================================================================== */
+.auth-form {
+  width: 100%;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.auth-form h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #1e293b; /* Dark slate heading */
+  letter-spacing: -0.5px;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  background: #f1f5f9; /* Soft cool-grey fill matching input elements in mockup */
+  color: #334155;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.auth-form input::placeholder {
+  color: #94a3b8; /* Muted placeholder typography */
+}
+
+.auth-form input:focus {
+  border-color: #475569;
+  background: #ffffff;
+}
+
+.primary-btn {
+  background: #475569; /* Balanced slate-blue color matching button accents */
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.primary-btn:hover {
+  background: #334155;
+}
+
+.primary-btn:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================================================
+   THE MASTER SMOOTH SLIDING OVERLAY ENGINE
+   ========================================================================== */
+.sliding-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%; 
+  height: 100%;
+  z-index: 10;
+  overflow: hidden;
+  transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.overlay-panel {
+  /* Elegant steel-blue gradient matching the reference mockup */
+  background: linear-gradient(135deg, #64748b, #475569);
+  color: white;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.overlay-panel h1 {
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.overlay-panel p {
+  margin: 16px 0 24px;
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.switch-btn {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 12px 36px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.switch-btn:hover {
+  background: white;
+  color: #475569;
+}
+
+/* ==========================================================================
+   THE ANIMATION STATES
+   ========================================================================== */
+
+/* STATE A: LOGIN MODE (Default) */
+.auth-container.show-login .sliding-overlay {
+  transform: translateX(100%); 
+}
+
+.auth-container.show-login .login-slot {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.auth-container.show-login .signup-slot {
+  opacity: 0;
+  transform: translateX(-10%);
+  pointer-events: none;
+}
+
+/* STATE B: SIGNUP MODE */
+.auth-container.show-signup .sliding-overlay {
+  transform: translateX(0%); 
+}
+
+.auth-container.show-signup .login-slot {
+  opacity: 0;
+  transform: translateX(10%);
+  pointer-events: none;
+}
+
+.auth-container.show-signup .signup-slot {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.auth-links{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    margin:10px 0 20px;
+}
+
+.auth-links a{
+    color:#2563eb;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:500;
+}
+
+.auth-links a:hover{
+    text-decoration:underline;
+}
+
+
+.password-input {
+  position: relative;
+  width: 100%;
+}
+
+.password-input input {
+  width: 100%;
+  padding-right: 45px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 18px;
+}
+
+.toggle-password:hover {
+  color: #1a73e8;
+}
+
+.primary-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================
+   MOBILE AUTH RESPONSIVENESS
+   ========================================================== */
+
+@media (max-width: 767px) {
+
+  .auth-page {
+    min-height: 100vh;
+    height: auto;
+    padding: 20px 15px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    align-items: center;
+  }
+
+  /* Smaller, single-column card */
+  .auth-container {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    min-height: 0;
+    display: block;
+    border-radius: 18px;
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.12);
+    overflow: hidden;
+  }
+
+  /* Each form takes the full card */
+  .form-column {
+    width: 100%;
+    height: auto;
+    min-height: 480px;
+    padding: 35px 20px;
+  }
+
+  .auth-form {
+    width: 100%;
+    max-width: 340px;
+    padding: 0;
+    gap: 13px;
+  }
+
+  .auth-form h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .auth-form input {
+    padding: 13px 14px;
+  }
+
+  .primary-btn {
+    padding: 13px;
+  }
+
+  /* ========================================================
+     REMOVE DESKTOP SLIDING OVERLAY ON MOBILE
+     ======================================================== */
+
+  .sliding-overlay {
+    display: none;
+  }
+
+  /* Make sure both form states behave normally on mobile */
+  .auth-container.show-login .login-slot,
+  .auth-container.show-signup .signup-slot {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .auth-container.show-login .signup-slot,
+  .auth-container.show-signup .login-slot {
+    display: none;
+  }
+
+  /* ========================================================
+     SWITCH BUTTON
+     ======================================================== */
+
+  .switch-btn {
+    padding: 11px 28px;
+    font-size: 14px;
+  }
+
+  /* ========================================================
+     BACKGROUND
+     ======================================================== */
+
+  .auth-page::before {
+    background-position: center;
+    background-size: cover;
+  }
+
+  /* Password toggle */
+  .toggle-password {
+    right: 12px;
+  }
+}

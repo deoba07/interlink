@@ -1,0 +1,101 @@
+.skeleton-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    min-height: 260px;
+}
+
+/* Header */
+
+.skeleton-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.skeleton-logo {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: #e5e7eb;
+}
+
+.skeleton-company {
+    flex: 1;
+}
+
+.skeleton-line {
+    height: 12px;
+    background: #e5e7eb;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.company-name {
+    width: 65%;
+    height: 16px;
+    margin-bottom: 8px;
+}
+
+.company-location {
+    width: 40%;
+}
+
+/* Title */
+
+.title {
+    width: 80%;
+    height: 20px;
+}
+
+/* Different lengths */
+
+.short {
+    width: 60%;
+}
+
+/* Footer */
+
+.skeleton-footer {
+    margin-top: auto;
+}
+
+.skeleton-button {
+    width: 120px;
+    height: 40px;
+    border-radius: 8px;
+    background: #e5e7eb;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shimmer */
+
+.skeleton-line::after,
+.skeleton-logo::after,
+.skeleton-button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.7),
+        transparent
+    );
+    animation: shimmer 1.3s infinite;
+}
+
+@keyframes shimmer {
+
+    100% {
+        transform: translateX(100%);
+    }
+
+}

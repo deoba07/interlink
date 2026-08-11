@@ -1,0 +1,60 @@
+.empty-state {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.empty-state h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.empty-state p {
+  font-size: 1rem;
+  color: #777;
+  max-width: 400px;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  color: #d1d5db;
+  margin-bottom: 20px;
+}
+
+
+
+/* Desktop default layout */
+.opportunities-content {
+  margin-left: 260px;
+  transition: margin-left 0.3s ease;
+  padding: 2rem;
+}
+
+.opportunities-content.collapsed {
+  margin-left: 80px;
+}
+
+/* Mobile responsive layout */
+.opportunities-content {
+  margin-left: 260px;
+  transition: margin-left 0.3s ease;
+  padding: 2rem;
+}
+
+.opportunities-content.collapsed {
+  margin-left: 80px;
+}
+
+@media (max-width: 768px) {
+  .opportunities-content,
+  .opportunities-content.collapsed {
+    margin-left: 0 !important;
+    padding: 70px 20px 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

@@ -1,0 +1,580 @@
+/* PAGE */
+
+.cv-layout{
+    min-height:100vh;
+    display:flex;
+    background:#f4f7fb;
+}
+
+.builder-badge{
+    display:inline-flex;
+    width:fit-content;
+
+    padding:6px 12px;
+
+    background:#eef4ff;
+    color:#2563eb;
+
+    border-radius:999px;
+
+    font-size:12px;
+    font-weight:600;
+
+    margin-bottom:8px;
+}
+
+/* HEADER */
+
+.cv-header{
+    border-left:5px solid #2563eb;
+    padding-left:18px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:35px;
+}
+
+.cv-header h2{
+    font-size:2rem;
+    margin:0;
+}
+
+.cv-header p{
+    margin-top:6px;
+    color:#6b7280;
+}
+
+.download-btn {
+  background: #2563eb;
+  color: #fff;
+  margin-right:350px;
+
+  border: none;
+  border-radius: 10px;
+
+  padding: 10px 22px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  white-space: nowrap;
+}
+
+.download-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+}
+
+.download-btn:active {
+  transform: translateY(0);
+}
+
+
+
+.logo a{
+
+    text-decoration:none;
+    color:#2563eb;
+
+}
+
+
+
+/* MAIN */
+
+.cv-container{
+    align-items:flex-start;
+
+    display:flex;
+
+    gap:30px;
+
+    padding:40px;
+
+}
+
+/* LEFT */
+
+.cv-form{
+
+     flex: 0 0 360px;
+    max-width: 360px;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.form-section{
+
+    display:flex;
+    flex-direction:column;
+
+    gap:15px;
+
+    margin-top:25px;
+
+}
+
+.form-section input{
+
+    padding:14px;
+
+    border:1px solid #ddd;
+
+    border-radius:8px;
+
+    font-size:15px;
+
+}
+
+/* RIGHT */
+
+.cv-preview-container {
+  flex: 1;
+  position: sticky;
+  top: 25px;
+  align-self: flex-start;
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+}
+
+/* CV */
+
+.cv-preview {
+  width: 794px;
+  min-height: 1123px;
+  box-sizing: border-box;
+
+  background: white;
+  padding: 45px 50px;
+
+  border-radius: 4px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+  overflow: hidden;
+}
+
+.cv-preview h1{
+
+    color:#2563eb;
+
+}
+
+.cv-preview h2{
+
+    margin-top:30px;
+
+    color:#1f2937;
+
+}
+
+.cv-preview hr{
+
+    margin:20px 0;
+
+}
+
+
+.date-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.date-row input{
+    width:100%;
+    box-sizing:border-box;
+}
+
+.date-row .form-group{
+    flex:1;
+}
+
+
+textarea{
+    width:100%;
+    min-height:130px;
+    resize:vertical;
+
+    padding:15px;
+
+    border-radius:10px;
+    border:1px solid #ddd;
+
+    font-size:15px;
+    font-family:inherit;
+}
+
+
+.suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.suggestion-btn {
+    border: none;
+    background: #eef4ff;
+    color: #2563eb;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.suggestion-btn:hover {
+    background: #2563eb;
+    color: white;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.skill-tag {
+    background: #2563eb;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.skill-tag span {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+/* ==========================
+   TEMPLATE SELECTOR
+========================== */
+
+.template-selector{
+    margin-bottom:30px;
+}
+
+.template-selector h3{
+    margin-bottom:15px;
+}
+
+.template-buttons{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.template-buttons button{
+    padding:10px 20px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:#ececec;
+    transition:.3s;
+    font-weight:600;
+}
+
+.template-buttons button:hover{
+    transform:translateY(-2px);
+}
+
+.template-buttons .active{
+    background:#4f46e5;
+    color:white;
+}
+
+/* ==========================
+   TEMPLATE 1
+========================== */
+
+.cv-document.professional {
+  background: white;
+  color: #222;
+  border: 1px solid #ddd;
+}
+
+.cv-document.modern {
+  background: #f8fbff;
+  border-left: 8px solid #2563eb;
+  color: #222;
+}
+
+.cv-document.modern h1 {
+  color: #2563eb;
+}
+
+.cv-document.minimal {
+  background: white;
+  color: #111;
+  font-family: Georgia, serif;
+}
+
+.cv-document.minimal h1 {
+  letter-spacing: 2px;
+}
+
+.certificate-box{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.add-btn{
+    background:#4f46e5;
+    color:white;
+    border:none;
+    padding:12px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    margin-top:10px;
+}
+
+.add-btn:hover{
+    opacity:.9;
+}
+
+.cv-document {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.cv-document h1 {
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.cv-document h2 {
+  font-size: 18px;
+  margin-top: 25px;
+}
+
+.cv-document h3 {
+  font-size: 16px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+MOBILE RESPONSIVENESS
+========================================== */
+
+@media (max-width: 768px) {
+
+/* Prevent horizontal scrolling */
+html,
+body {
+width: 100%;
+max-width: 100%;
+overflow-x: hidden;
+}
+
+/* Main CV page */
+.cv-page {
+width: 100%;
+max-width: 100%;
+margin-left: 0 !important;
+padding: 20px 15px;
+box-sizing: border-box;
+}
+
+/* Badge */
+.builder-badge {
+margin-bottom: 15px;
+}
+
+/* Header */
+.cv-header {
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 15px;
+margin-bottom: 25px;
+}
+
+.cv-header h2 {
+font-size: 1.5rem;
+}
+
+/* Download button */
+.download-btn {
+margin-right: 0;
+width: 100%;
+padding: 12px 16px;
+}
+
+/* Main builder layout */
+.cv-container {
+display: flex;
+flex-direction: column;
+width: 100%;
+padding: 20px 0;
+gap: 25px;
+box-sizing: border-box;
+}
+
+/* Form */
+.cv-form {
+width: 100%;
+max-width: 100%;
+flex: none;
+padding: 20px;
+box-sizing: border-box;
+}
+
+/* Form inputs */
+.form-section input,
+.form-section textarea,
+textarea {
+width: 100%;
+max-width: 100%;
+box-sizing: border-box;
+}
+
+/* Template buttons */
+.template-buttons {
+display: grid;
+grid-template-columns: 1fr;
+gap: 10px;
+}
+
+.template-buttons button {
+width: 100%;
+}
+
+/* Date fields */
+.date-row {
+grid-template-columns: 1fr;
+gap: 12px;
+}
+
+/* Suggestions */
+.suggestions {
+gap: 8px;
+}
+
+.suggestion-btn {
+max-width: 100%;
+}
+
+/* Skills */
+.skills-list {
+max-width: 100%;
+overflow-wrap: anywhere;
+}
+
+.skill-tag {
+max-width: 100%;
+overflow-wrap: anywhere;
+}
+
+/* CV preview wrapper */
+.cv-preview-container {
+position: static;
+width: 100%;
+max-width: 100%;
+display: block;
+overflow-x: auto;
+padding: 0;
+box-sizing: border-box;
+}
+
+/*
+Keep the CV document at A4 proportions.
+It can scroll horizontally inside the preview area
+instead of pushing the entire page sideways.
+*/
+.cv-preview {
+width: 794px;
+min-width: 794px;
+min-height: 1123px;
+margin: 0 auto;
+}
+
+/* Certificates */
+.certificate-box {
+width: 100%;
+max-width: 100%;
+}
+
+/* Make long links/text wrap */
+.cv-preview,
+.cv-preview p,
+.cv-preview h1,
+.cv-preview h2,
+.cv-preview h3 {
+overflow-wrap: anywhere;
+}
+}
+
+/* Smaller phones */
+@media (max-width: 480px) {
+
+.cv-page {
+padding: 15px 10px;
+}
+
+.cv-form {
+padding: 16px;
+border-radius: 12px;
+}
+
+.cv-form h2 {
+font-size: 1.4rem;
+}
+
+.cv-preview-container {
+margin: 0 -10px;
+width: calc(100% + 20px);
+}
+
+.cv-preview {
+transform-origin: top left;
+}
+
+.download-btn {
+font-size: 14px;
+}
+}
