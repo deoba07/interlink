@@ -6,6 +6,7 @@ import InternshipDetails from "./InternshipDetails";
 import Opportunities from "./Opportunities";
 import LoginSignup from "./LoginSignup";
 import CVBuilder from "./CVBuilder";
+import Guide from "./Guide";
 import Saved from "./Saved";
 import Applied from "./Applied";
 import Profile from "./Profile";
@@ -21,6 +22,7 @@ function App() {
         <Route path="/LoginSignup" element={<LoginSignup />} />
         <Route path="/cv-builder" element={<CVBuilder />} />
         <Route path="/saved" element={<Saved />} />
+        <Route path="/Guide" element={<Guide />} />
         <Route path="/Applied" element={<Applied />} />
         <Route path="/Profile" element={<Profile />} />
         <Route path="/opportunities" element={<Opportunities />} />

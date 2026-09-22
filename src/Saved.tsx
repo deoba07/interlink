@@ -31,7 +31,7 @@ function Saved() {
       setLoading(true);
 
       try {
-        const res = await fetch("http://localhost:3000/internships/saved", {
+        const res = await fetch("https://backlink-6l9m.onrender.com/internships/saved", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -52,7 +52,7 @@ function Saved() {
 
   const handleDelete = async (id: number) => {
     try {
-      const res = await fetch(`http://localhost:3000/internships/save/${id}`, {
+      const res = await fetch(`https://backlink-6l9m.onrender.com/internships/save/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

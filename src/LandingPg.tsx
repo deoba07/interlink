@@ -58,7 +58,7 @@ const handleCVBuilder = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:3000/internships/with-companies");
+      const res = await fetch("https://backlink-6l9m.onrender.com/internships/with-companies");
       const data = await res.json();
 
       setFeaturedInternships(data.slice(0, 3));
@@ -108,6 +108,10 @@ const handleCVBuilder = () => {
   <ul className="nav-menu">
     <li>
       <Link to="/Discover">Discover</Link>
+    </li>
+
+    <li>
+      <Link to="/Guide">Guide</Link>
     </li>
 
     <li>

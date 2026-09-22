@@ -48,10 +48,10 @@ function Opportunities() {
       const searchQuery = params.get("search") || "";
       const locationQuery = params.get("location") || "";
 
-      let url = "http://localhost:3000/internships/with-companies";
+      let url = "https://backlink-6l9m.onrender.com/internships/with-companies";
 
       if (searchQuery || locationQuery) {
-        url = `http://localhost:3000/internships/search?q=${encodeURIComponent(
+        url = `https://backlink-6l9m.onrender.com/internships/search?q=${encodeURIComponent(
           searchQuery
         )}&location=${encodeURIComponent(locationQuery)}`;
       }

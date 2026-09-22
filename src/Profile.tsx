@@ -27,7 +27,7 @@ function Profile() {
 
       try {
         const res = await fetch(
-          "http://localhost:3000/internships/profile",
+          "https://backlink-6l9m.onrender.com/internships/profile",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

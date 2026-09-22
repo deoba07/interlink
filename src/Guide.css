@@ -1,0 +1,205 @@
+
+:root {
+  --navy: #1B2A4A;
+  --amber: #E8A33D;
+  --paper: #F7F8FA;
+  --ink: #1D2129;
+  --slate: #5B6472;
+  --panel: rgba(27, 42, 74, 0.04);
+  --hairline: rgba(27, 42, 74, 0.12);
+}
+
+.guide-page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 72px 24px 96px;
+  background: var(--paper);
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: var(--ink);
+}
+
+.guide-header {
+  margin-bottom: 64px;
+}
+
+.guide-header h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.1rem;
+  font-weight: 600;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin: 0 0 14px 0;
+}
+
+.guide-header p {
+  color: var(--slate);
+  line-height: 1.65;
+  max-width: 480px;
+  margin: 0;
+  font-size: 1.02rem;
+}
+
+/* Steps — route-line treatment */
+
+.guide-steps {
+  margin-bottom: 72px;
+}
+
+.guide-steps ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.guide-steps ol::before {
+  content: '';
+  position: absolute;
+  left: 19px;
+  top: 20px;
+  bottom: 20px;
+  width: 2px;
+  background: var(--amber);
+  opacity: 0.55;
+}
+
+.guide-step {
+  position: relative;
+  display: flex;
+  gap: 22px;
+}
+
+.guide-step-number {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.guide-step-body {
+  padding-top: 4px;
+}
+
+.guide-step h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 6px 0;
+}
+
+.guide-step p {
+  color: var(--slate);
+  line-height: 1.65;
+  margin: 0;
+  max-width: 460px;
+}
+
+/* FAQ — single quiet panel */
+
+.guide-faq h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin: 0 0 4px 0;
+}
+
+.faq-list {
+  margin-top: 20px;
+  background: var(--panel);
+  border-radius: 12px;
+  padding: 4px 20px;
+}
+
+.faq-item {
+  border-bottom: 1px solid var(--hairline);
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.faq-question:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.faq-icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--amber);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
+}
+
+.faq-icon--open {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  padding: 0 32px 18px 0;
+  color: var(--slate);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-icon {
+    transition: none;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 480px) {
+  .guide-page {
+    padding: 48px 18px 72px;
+  }
+
+  .guide-header h1 {
+    font-size: 1.7rem;
+  }
+
+  .guide-steps ol {
+    gap: 32px;
+  }
+
+  .faq-answer {
+    padding-right: 0;
+  }
+}

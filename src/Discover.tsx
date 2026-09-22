@@ -8,7 +8,7 @@ function Discover() {
     e.preventDefault();
 
     const res = await fetch(
-      `http://localhost:3000/internships/search?q=${search}`
+      `https://backlink-6l9m.onrender.com/internships/search?q=${search}`
     );
 
     const data = await res.json();
