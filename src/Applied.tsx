@@ -30,7 +30,7 @@ function Applied() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:3000/internships/applied", {
+      const res = await fetch("https://backlink-6l9m.onrender.com/internships/applied", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -55,7 +55,7 @@ function Applied() {
 
    const handleDelete = async (id: number) => {
   try {
-    const res = await fetch(`http://localhost:3000/internships/applied/${id}`, {
+    const res = await fetch(`https://backlink-6l9m.onrender.com/applied/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

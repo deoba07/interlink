@@ -163,7 +163,7 @@ function InternshipDetails() {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/internships/save/${id}`,
+        `https://backlink-6l9m.onrender.com/internships/save/${id}`,
         {
           method: "POST",
           headers: {
