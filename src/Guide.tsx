@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./Guide.css";
+import Navbar from "./components/Navbar";
+
 
 type Step = {
   title: string;
@@ -10,6 +12,8 @@ type FAQ = {
   question: string;
   answer: string;
 };
+
+
 
 const steps: Step[] = [
   {
@@ -94,9 +98,11 @@ function FAQItem({ faq }: { faq: FAQ }) {
 
 export default function Guide() {
   return (
+    <>
+      <Navbar />
     <div className="guide-page">
       <header className="guide-header">
-        <h1>Finding your way around Interlink</h1>
+        <h1>Finding your way around NaijaIntern</h1>
         <p>
           A quick walkthrough of how the platform works, from your first
           search to sending an application.
@@ -126,5 +132,6 @@ export default function Guide() {
         </div>
       </section>
     </div>
+    </>
   );
 }

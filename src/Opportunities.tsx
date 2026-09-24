@@ -139,7 +139,7 @@ useEffect(() => {
 
           <input
             type="text"
-            placeholder="Search course..."
+            placeholder="Search course, role, or location..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />

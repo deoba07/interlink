@@ -1,8 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Geom:ital,wght@0,300..900;1,300..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+
+
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Geom", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 
@@ -10,6 +15,7 @@
 body {
   background-color: #fcfdfe;
   color: #1e293b;
+  font-family: "Lato",system-ui, -apple-system, sans-serif;
 }
 
 
@@ -20,7 +26,21 @@ nav {
   padding: 1rem 4rem;
   background-color: #ffffff;
   border-bottom: 1px solid #e2e8f0;
+  position: relative;
+}
 
+.nav-top-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-hamburger {
+  display: none;
+}
+
+.nav-links-wrapper {
+  display: contents;
 }
 
 .nav-brand {
@@ -30,16 +50,90 @@ nav {
   letter-spacing: -0.01em;
 }
 
-.nav-brand a{
-    text-decoration: none;
-    color:black
+.nav-brand a {
+  text-decoration: none;
+  color: black;
 }
 
 .nav-menu {
   display: flex;
   list-style: none;
   gap: 2.5rem;
-  justify-content: center;
+  justify-self: center;
+}
+
+.nav-menu li a {
+  text-decoration: none;
+  color: #475569;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  padding: 0.5rem 0;
+}
+
+.nav-menu li a:hover {
+  color: #0f172a;
+}
+
+.nav-menu li.active a {
+  color: #ffffff;
+  border-bottom: 2px solid #3b82f6;
+  font-weight: 600;
+}
+
+.nav-sign {
+  display: flex;
+  justify-content: flex-end;
+  justify-self: end;
+  list-style-type: none;
+  gap: 1.5rem;
+  color: #94a3b8;
+}
+
+.nav-sign a {
+  color: #64748b;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.nav-button:hover {
+  color: #2563eb;
+}
+
+.logout-btn-nav {
+  font-weight: 600;
+}
+
+.nav-mobile-overlay {
+  display: none;
+}
+
+.nav-brand {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+}
+
+.nav-brand a {
+  text-decoration: none;
+  color: black;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 2.5rem;
 }
 
 .nav-menu li a {
@@ -65,35 +159,37 @@ nav {
   display: flex;
   justify-content: flex-end;
   list-style-type: none;
-  gap:1.5rem;
-  color:#94a3b8;
+  gap: 1.5rem;
+  color: #94a3b8;
 }
 
 .nav-sign a {
-  color: #64748b;   /* grey */
+  color: #64748b;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease;
 }
 
-
 .nav-button {
-    background: none;
-    border: none;
-    color: inherit;
-    font: inherit;
-    cursor: pointer;
-    padding: 0;
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
 }
 
 .nav-button:hover {
-    color: #2563eb;
+  color: #2563eb;
 }
 
 .logout-btn-nav {
-    font-weight: 600;
+  font-weight: 600;
 }
 
+.nav-mobile-overlay {
+  display: none;
+}
 
 
 
@@ -220,7 +316,7 @@ nav {
 .view-all-link {
   color: #64748b;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 500;
   transition: color 0.2s ease;
 }
@@ -431,25 +527,70 @@ nav {
 @media (max-width: 767px) {
 
   /* NAVIGATION */
+    /* NAVIGATION */
   nav {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    align-items: stretch;
     padding: 1rem 1.25rem;
-    text-align: center;
+    text-align: left;
+  }
+
+  .nav-top-row {
+    justify-content: space-between;
   }
 
   .nav-brand {
     font-size: 1.1rem;
   }
 
-  .nav-menu {
-    gap: 1.5rem;
+  .nav-hamburger {
+    display: flex;
+    align-items: center;
     justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 22px;
+    color: #111827;
+    cursor: pointer;
+  }
+
+  .nav-hamburger:hover {
+    background: #f3f4f6;
+  }
+
+  .nav-links-wrapper {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+    margin: 1rem 0 0 0;
+  }
+
+  .nav-links-wrapper.mobile-open {
+    display: flex;
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    gap: 1.25rem;
+    width: 100%;
   }
 
   .nav-sign {
-    justify-content: center;
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .nav-mobile-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 1999;
   }
 
 

@@ -82,7 +82,7 @@ const handleMobileClose = () => {
         <div className="sidebar-logo">
           <Link to ="/" className="sidebar-link">
           <i className="fas fa-briefcase"></i>
-          <span className="label fade-text">Career Command Center</span>
+          <span className="label fade-text">Discover</span>
           
           </Link>
         </div>

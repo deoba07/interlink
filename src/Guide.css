@@ -9,6 +9,22 @@
   --hairline: rgba(27, 42, 74, 0.12);
 }
 
+
+
+.back-to-discover {
+  display: inline-block;
+  color: #64748b;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin: 1.5rem 0 1rem 1.5rem;
+  transition: color 0.2s ease;
+}
+
+.back-to-discover:hover {
+  color: #0f172a;
+}
+
 .guide-page {
   max-width: 680px;
   margin: 0 auto;

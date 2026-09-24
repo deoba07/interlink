@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import InternshipCard from "./InternshipCard";
 import SkeletonCard from "./components/SkeletonCard";
+import Navbar from "./components/Navbar";
 
 type Company = {
   id: number;
@@ -21,26 +22,6 @@ type Internship = {
 
 
 function LandingPg() {
-
-
-  const isLoggedIn = !!localStorage.getItem("token");
-
-const handleLogout = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
-
-  toast.success("Logged out successfully.");
-  navigate("/");
-};
-
-const handleCVBuilder = () => {
-  if (!isLoggedIn) {
-    toast.error("Please sign in to use the CV Builder.");
-    return;
-  }
-
-  navigate("/CVBuilder");
-};
 
 
   const navigate = useNavigate();
@@ -100,43 +81,7 @@ const handleCVBuilder = () => {
   return (
     <div className="landing-container">
 
-      <nav>
-  <h2 className="nav-brand">
-    <Link to="/">Career Command Center</Link>
-  </h2>
-
-  <ul className="nav-menu">
-    <li>
-      <Link to="/Discover">Discover</Link>
-    </li>
-
-    <li>
-      <Link to="/Guide">Guide</Link>
-    </li>
-
-    <li>
-      <button
-        className="nav-button"
-        onClick={handleCVBuilder}
-      >
-        CV Builder
-      </button>
-    </li>
-  </ul>
-
-  <div className="nav-sign">
-    {isLoggedIn ? (
-      <button
-        className="nav-button logout-btn-nav"
-        onClick={handleLogout}
-      >
-        Logout
-      </button>
-    ) : (
-      <Link to="/LoginSignup">Get Started</Link>
-    )}
-  </div>
-</nav>
+      <Navbar />
 
       
       <div className="hero-section">
@@ -145,12 +90,12 @@ const handleCVBuilder = () => {
           Trusted by Students all over Nigeria
         </span>
 
-        <h1>Find Internship Opportunities That</h1>
-        <h1>Match Your Course</h1>
+        <h1>Find Internship Opportunities That Match Your Course</h1>
+        
 
         <p>
-          Nigeria's premier bridge between students and top-tier companies,
-          providing precision matching for the next generation of professionals.
+          Every year, thousands of Nigerian students search for internships that fit their course of study.
+       NaijaIntern makes that search easier connecting you to real opportunities across the country, matched to what you're studying.
         </p>
 
         {/* SEARCH BAR (UNCHANGED CLASSNAMES) */}
@@ -180,7 +125,7 @@ const handleCVBuilder = () => {
 
           <button className="btn-search"
            type="submit">
-            Search Internship
+            Search Internships
           </button>
 
         </form>
@@ -190,7 +135,7 @@ const handleCVBuilder = () => {
       <div className="opportunities-header">
         <div>
           <h3>Featured Opportunities</h3>
-          <p>Selected high-impact roles for your career launch</p>
+          <p>Hand-picked roles to get you started</p>
         </div>
 
         <Link to="/opportunities" className="view-all-link">
@@ -220,7 +165,7 @@ const handleCVBuilder = () => {
         <div className="stat-box">
           <i className="fas fa-briefcase"></i>
           <h1>200+</h1>
-          <p>Internship Opportunites</p>
+          <p>Internship Opportunities</p>
         </div>
 
         <div className="stat-box">
