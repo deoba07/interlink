@@ -117,16 +117,26 @@ nav {
     background: #f3f4f6;
   }
 
-  .nav-links-wrapper {
-    display: none;
+    .nav-links-wrapper {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 1.25rem;
-    margin: 1rem 0 0 0;
+    gap: 1.75rem;
+    margin: 0;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0 0.25rem;
+    transition: max-height 0.35s ease, opacity 0.3s ease, padding 0.35s ease;
   }
 
   .nav-links-wrapper.mobile-open {
-    display: flex;
+    position: relative;
+    z-index: 2000;
+    background: #ffffff;
+    max-height: 400px;
+    opacity: 1;
+    padding: 1.5rem 0.25rem;
   }
 
   .nav-menu {
