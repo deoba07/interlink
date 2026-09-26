@@ -99,36 +99,36 @@ function InternshipDetails() {
   // up in their feed. It does not itself contact anyone -- see
   // handleContactByEmail / handleContactOnSite below for that.
   const handleApply = async () => {
-    if (!token) {
-      toast.error("Please sign in to apply for internships.");
+  if (!token) {
+    toast.error("Please sign in to apply for internships.");
+    return;
+  }
+
+  try {
+    const res = await fetch(
+      `https://backlink-6l9m.onrender.com/internships/apply/${id}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      toast.error(data.message);
       return;
     }
 
-    try {
-      const res = await fetch(
-        `https://backlink-6l9m.onrender.com/internships/apply/${id}`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        toast.error(data.message);
-        return;
-      }
-
-      setApplied(true);
-      toast.success("Application submitted successfully!");
-    } catch (err) {
-      console.error(err);
-      toast.error("Something went wrong.");
-    }
-  };
+    setApplied(true);
+    toast.success("Marked as applied — good luck!");
+  } catch (err) {
+    console.error(err);
+    toast.error("Something went wrong.");
+  }
+};
 
   // These just open the way to contact the company -- mail client or
   // their application page. They do NOT mark the internship as
@@ -188,23 +188,54 @@ function InternshipDetails() {
   };
 
   useEffect(() => {
-    const fetchInternship = async () => {
-      setLoading(true);
+  const checkSavedAndApplied = async () => {
+    if (!token) return;
 
-      try {
-        const res = await fetch(`https://backlink-6l9m.onrender.com/internships/${id}`);
-        const data = await res.json();
+    try {
+      const [savedRes, appliedRes] = await Promise.all([
+        fetch("https://backlink-6l9m.onrender.com/internships/saved", {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+        fetch("https://backlink-6l9m.onrender.com/internships/applied", {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+      ]);
 
-        setInternship(data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+      const savedData = await savedRes.json();
+      const appliedData = await appliedRes.json();
 
-    fetchInternship();
-  }, [id]);
+      const savedList = Array.isArray(savedData) ? savedData : [];
+      const appliedList = Array.isArray(appliedData) ? appliedData : [];
+
+      setSaved(savedList.some((item) => item.id === Number(id)));
+      setApplied(appliedList.some((item) => item.id === Number(id)));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+
+  useEffect(() => {
+  const fetchInternship = async () => {
+    setLoading(true);
+
+    try {
+      const res = await fetch(`https://backlink-6l9m.onrender.com/internships/${id}`);
+      const data = await res.json();
+
+      setInternship(data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchInternship();
+}, [id]);
+
+  checkSavedAndApplied();
+}, [id, token]);
 
   if (loading) {
     return (

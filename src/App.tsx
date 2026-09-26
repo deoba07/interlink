@@ -10,6 +10,7 @@ import Guide from "./Guide";
 import Saved from "./Saved";
 import Applied from "./Applied";
 import Profile from "./Profile";
+import ProtectedRoute from "./components/ProtectedRoutes";
 
 function App() {
   return (
@@ -20,11 +21,11 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPg />} />
         <Route path="/LoginSignup" element={<LoginSignup />} />
-        <Route path="/cv-builder" element={<CVBuilder />} />
-        <Route path="/saved" element={<Saved />} />
+        <Route path="/cv-builder" element={<ProtectedRoute><CVBuilder /></ProtectedRoute>} />
+        <Route path="/saved" element={<ProtectedRoute><Saved /></ProtectedRoute>} />
         <Route path="/Guide" element={<Guide />} />
-        <Route path="/Applied" element={<Applied />} />
-        <Route path="/Profile" element={<Profile />} />
+        <Route path="/Applied" element={<ProtectedRoute><Applied /></ProtectedRoute>} />
+        <Route path="/Profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/opportunities" element={<Opportunities />} />
         <Route path="/internship/:id" element={<InternshipDetails />} />
       </Routes>
