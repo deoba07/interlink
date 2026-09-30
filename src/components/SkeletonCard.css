@@ -65,6 +65,15 @@
     margin-top: auto;
 }
 
+.skeleton-logo {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: #e5e7eb;
+    position: relative;
+    overflow: hidden;
+}
+
 .skeleton-button {
     width: 120px;
     height: 40px;

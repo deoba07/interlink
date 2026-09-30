@@ -1,12 +1,12 @@
 
 :root {
-  --navy: #1B2A4A;
-  --amber: #E8A33D;
+  --navy: #0f172a;      /* matches your site's dark heading color */
+  --amber: #2563eb;     /* replaced with your site's main blue */
   --paper: #F7F8FA;
   --ink: #1D2129;
   --slate: #5B6472;
-  --panel: rgba(27, 42, 74, 0.04);
-  --hairline: rgba(27, 42, 74, 0.12);
+  --panel: rgba(37, 99, 235, 0.05);   /* updated to a blue-tinted panel */
+  --hairline: rgba(37, 99, 235, 0.12);
 }
 
 
@@ -30,7 +30,6 @@
   margin: 0 auto;
   padding: 72px 24px 96px;
   background: var(--paper);
-  font-family: 'Inter', -apple-system, sans-serif;
   color: var(--ink);
 }
 
@@ -39,7 +38,6 @@
 }
 
 .guide-header h1 {
-  font-family: 'Space Grotesk', sans-serif;
   font-size: 2.1rem;
   font-weight: 600;
   color: var(--navy);
@@ -111,7 +109,6 @@
 }
 
 .guide-step h3 {
-  font-family: 'Space Grotesk', sans-serif;
   font-size: 1.05rem;
   font-weight: 600;
   color: var(--ink);
@@ -128,7 +125,6 @@
 /* FAQ — single quiet panel */
 
 .guide-faq h2 {
-  font-family: 'Space Grotesk', sans-serif;
   font-size: 1.3rem;
   font-weight: 600;
   color: var(--navy);

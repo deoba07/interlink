@@ -5,6 +5,7 @@ import Sidebar from "./components/Sidebar";
 import "./InternshipDetails.css";
 import SkeletonDetails from "./components/SkeletonDetails";
 
+
 type Company = {
   name: string;
   website?: string;
@@ -45,9 +46,10 @@ const toBulletPoints = (text: string) => {
   if (!text) return [];
 
   return text
-    .split("-")
-    .map(item => item.trim())
-    .filter(item => item.length > 0);
+    .split(/\r?\n/)
+    .map(line => line.trim())
+    .filter(line => line.length > 0)
+    .map(line => line.replace(/^[-•*]\s*/, ""));
 };
 
 const getCompanyLogo = (website?: string) => {
@@ -99,36 +101,36 @@ function InternshipDetails() {
   // up in their feed. It does not itself contact anyone -- see
   // handleContactByEmail / handleContactOnSite below for that.
   const handleApply = async () => {
-  if (!token) {
-    toast.error("Please sign in to apply for internships.");
-    return;
-  }
-
-  try {
-    const res = await fetch(
-      `https://backlink-6l9m.onrender.com/internships/apply/${id}`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      toast.error(data.message);
+    if (!token) {
+      toast.error("Please sign in to apply for internships.");
       return;
     }
 
-    setApplied(true);
-    toast.success("Marked as applied — good luck!");
-  } catch (err) {
-    console.error(err);
-    toast.error("Something went wrong.");
-  }
-};
+    try {
+      const res = await fetch(
+        `https://backlink-6l9m.onrender.com/internships/apply/${id}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data.message);
+        return;
+      }
+
+      setApplied(true);
+      toast.success("Marked as applied — good luck!");
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong.");
+    }
+  };
 
   // These just open the way to contact the company -- mail client or
   // their application page. They do NOT mark the internship as
@@ -188,54 +190,59 @@ function InternshipDetails() {
   };
 
   useEffect(() => {
-  const checkSavedAndApplied = async () => {
-    if (!token) return;
+    const fetchInternship = async () => {
+      setLoading(true);
 
-    try {
-      const [savedRes, appliedRes] = await Promise.all([
-        fetch("https://backlink-6l9m.onrender.com/internships/saved", {
-          headers: { Authorization: `Bearer ${token}` },
-        }),
-        fetch("https://backlink-6l9m.onrender.com/internships/applied", {
-          headers: { Authorization: `Bearer ${token}` },
-        }),
-      ]);
+      try {
+        const res = await fetch(`https://backlink-6l9m.onrender.com/internships/${id}`);
+        const data = await res.json();
 
-      const savedData = await savedRes.json();
-      const appliedData = await appliedRes.json();
+        setInternship(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      const savedList = Array.isArray(savedData) ? savedData : [];
-      const appliedList = Array.isArray(appliedData) ? appliedData : [];
-
-      setSaved(savedList.some((item) => item.id === Number(id)));
-      setApplied(appliedList.some((item) => item.id === Number(id)));
-    } catch (err) {
-      console.error(err);
-    }
-  };
+    fetchInternship();
+  }, [id]);
 
 
   useEffect(() => {
-  const fetchInternship = async () => {
-    setLoading(true);
+    const checkSavedAndApplied = async () => {
+      if (!token) return;
 
-    try {
-      const res = await fetch(`https://backlink-6l9m.onrender.com/internships/${id}`);
-      const data = await res.json();
+      try {
+        const [savedRes, appliedRes] = await Promise.all([
+          fetch("https://backlink-6l9m.onrender.com/internships/saved", {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+          fetch("https://backlink-6l9m.onrender.com/internships/applied", {
+            headers: { Authorization: `Bearer ${token}` },
+          }),
+        ]);
 
-      setInternship(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+        const savedData = await savedRes.json();
+        const appliedData = await appliedRes.json();
 
-  fetchInternship();
-}, [id]);
+        const savedList = Array.isArray(savedData) ? savedData : [];
+        const appliedList = Array.isArray(appliedData) ? appliedData : [];
 
-  checkSavedAndApplied();
-}, [id, token]);
+        setSaved(savedList.some((item) => item.id === Number(id)));
+        setApplied(appliedList.some((item) => item.id === Number(id)));
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    checkSavedAndApplied();
+  }, [id, token]);
+
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, [id, loading]);
+  
 
   if (loading) {
     return (
@@ -282,20 +289,20 @@ function InternshipDetails() {
           <div className="header-info">
             <h1>{internship.title}</h1>
             <h3>{internship.company?.name}</h3>
-            <p>📍 {internship.location}</p>
+            <p> <i className="fas fa-map-marker-alt icon"></i> {internship.location}</p>
           </div>
         </div>
 
         <div className="action-buttons">
           {email && (
             <button className="contact-btn" onClick={handleContactByEmail}>
-              ✉️ Email {internship.company?.name}
+              <i className="fas fa-envelope icon"></i> Email {internship.company?.name}
             </button>
           )}
 
           {!email && applicationUrl && (
             <button className="contact-btn" onClick={handleContactOnSite}>
-              🔗 Apply on Company's Site
+              <i className="fas fa-link icon"></i> Apply on Company's Site
             </button>
           )}
 

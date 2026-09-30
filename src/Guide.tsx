@@ -19,12 +19,12 @@ const steps: Step[] = [
   {
     title: "Browse opportunities",
     description:
-      "Head to Opportunities and search or filter by department and location. No account needed to look around.",
+      "Click the view opportunities link on the discover page and search  by department,role and location. No account needed to look around.",
   },
   {
     title: "Create an account",
     description:
-      "Sign up to unlock saving internships and tracking the ones you've applied to.",
+      "Sign up to unlock saving internships and knowing the ones you've applied to.",
   },
   {
     title: "Save or mark as applied",
@@ -39,7 +39,7 @@ const steps: Step[] = [
   {
     title: "Apply directly",
     description:
-      "Use the link or email on each listing to apply straight to the company — no extra steps in between.",
+      "Use the link or email on each listing to apply straight to the company and know more about the opportunity with the company no extra steps in between.",
   },
 ];
 
@@ -55,14 +55,14 @@ const faqs: FAQ[] = [
       "Once you mark something as Applied, it's removed from your active feed so you're only ever looking at internships you haven't acted on yet. You can still find it under your Applied list.",
   },
   {
-    question: "Is Interlink only for tech or IT students?",
+    question: "Is NaijaIntern only for tech or IT students?",
     answer:
       "Not at all. Internships are listed across departments — from marketing and finance to engineering and design. Filter by your department to see what's relevant to you.",
   },
   {
     question: "Can I apply to internships outside my state?",
     answer:
-      "Yes. Location filtering just helps you find what's nearby first — it's a preference, not a restriction. You can search or browse anywhere in the country.",
+      "Yes. Location filtering just helps you find what's nearby first  it's a preference, not a restriction. You can search or browse anywhere in the country.",
   },
   {
     question: "How often are new internships added?",
@@ -70,9 +70,9 @@ const faqs: FAQ[] = [
       "We're adding new listings regularly as we find them. Check back often, or save opportunities you're interested in so you don't lose track.",
   },
   {
-    question: "Is Interlink free to use?",
+    question: "Is NaijaIntern free to use?",
     answer:
-      "Yes — browsing, saving, applying, and building your CV are all free.",
+      "Yes  browsing, saving, applying, and building your CV are all free.",
   },
 ];
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./LoginSignup.css";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
@@ -44,10 +44,10 @@ function LoginSignup() {
       const data = await res.json();
 
       if (!res.ok) {
-      setLoginLoading(false);
-      toast.error(data.message);
-      return;
-   }
+        setLoginLoading(false);
+        toast.error(data.message);
+        return;
+      }
 
       localStorage.setItem("token", data.token);
 
@@ -56,23 +56,13 @@ function LoginSignup() {
       }
 
       toast.success("Login Successful!");
-
-      setTimeout(() => {
-      setLoginLoading(false);
       navigate("/opportunities");
-      }, 1000);
-
-     
-
     } catch (err) {
       console.error(err);
       setLoginLoading(false);
       toast.error("Something went wrong.");
     }
   };
-
-
- 
 
   /* ---------------- SIGN UP ---------------- */
 
@@ -81,8 +71,9 @@ function LoginSignup() {
     setSignupLoading(true);
 
     if (signupData.password !== signupData.confirmPassword) {
-    toast.error("Passwords do not match.");
-    return;
+      toast.error("Passwords do not match.");
+      setSignupLoading(false);
+      return;
     }
 
     try {
@@ -92,9 +83,9 @@ function LoginSignup() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-        name: signupData.name,
-        email: signupData.email,
-        password: signupData.password,
+          name: signupData.name,
+          email: signupData.email,
+          password: signupData.password,
         }),
       });
 
@@ -106,19 +97,22 @@ function LoginSignup() {
         return;
       }
 
-      toast.success("Account created successfully!");
+      toast.success("Account created! Please sign in.");
 
-      setSignupData({
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
+      setLoginData({
+        email: signupData.email,
+        password: "",
       });
 
-      setTimeout(() => {
-      setSignupLoading(false);
-      }, 1000);
+      setSignupData({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
 
+      setSignupLoading(false);
+      setIsLogin(true);
     } catch (err) {
       console.error(err);
       setSignupLoading(false);
@@ -126,26 +120,34 @@ function LoginSignup() {
     }
   };
 
+  const handleForgotPassword = () => {
+    toast("Password reset isn't set up yet — reach out to support for now.");
+  };
+
   return (
     <div className="auth-page">
-
       <div
         className={`auth-container ${
           isLogin ? "show-login" : "show-signup"
         }`}
       >
-
         {/* LOGIN */}
 
-        <div className="form-column login-slot">
-
+        <div
+          className="form-column login-slot"
+          {...(!isLogin ? ({ inert: "" } as any) : {})}
+        >
           <form className="auth-form" onSubmit={handleLogin}>
-
             <h2>Login</h2>
 
+            <label className="visually-hidden" htmlFor="login-email">
+              Email
+            </label>
             <input
+              id="login-email"
               type="email"
               placeholder="Email"
+              aria-label="Email"
               value={loginData.email}
               onChange={(e) =>
                 setLoginData({
@@ -157,67 +159,78 @@ function LoginSignup() {
             />
 
             <div className="password-input">
-            <input
-            type={showLoginPassword ? "text" : "password"}
-            placeholder="Password"
-           value={loginData.password}
-           onChange={(e) =>
-            setLoginData({
-          ...loginData,
-          password: e.target.value,
-          })
-         }
-         required
-          />
+              <label className="visually-hidden" htmlFor="login-password">
+                Password
+              </label>
+              <input
+                id="login-password"
+                type={showLoginPassword ? "text" : "password"}
+                placeholder="Password"
+                aria-label="Password"
+                value={loginData.password}
+                onChange={(e) =>
+                  setLoginData({
+                    ...loginData,
+                    password: e.target.value,
+                  })
+                }
+                required
+              />
 
-          <button
-          type="button"
-          className="toggle-password"
-          onClick={() => setShowLoginPassword(!showLoginPassword)}
-           >
-          {showLoginPassword ? <FiEyeOff /> : <FiEye />}
-          </button>
-          </div>
-
-            <div className="auth-links">
-<button
-  type="button"
-  className="mobile-auth-switch"
-  onClick={() => setIsLogin(false)}
->
-  Don't have an account? <strong>Sign Up</strong>
-</button> 
+              <button
+                type="button"
+                className="toggle-password"
+                aria-label={showLoginPassword ? "Hide password" : "Show password"}
+                onClick={() => setShowLoginPassword(!showLoginPassword)}
+              >
+                {showLoginPassword ? <FiEyeOff /> : <FiEye />}
+              </button>
             </div>
 
-
-           
-
-            <button 
-            className="primary-btn"
-            disabled={loginLoading}>
-              {loginLoading ? "Logging in..." : "Login"}
+            <button
+              type="button"
+              className="forgot-password"
+              onClick={handleForgotPassword}
+            >
+              Forgot password?
             </button>
 
+            <div className="auth-links">
+              <button
+                type="button"
+                className="mobile-auth-switch"
+                onClick={() => setIsLogin(false)}
+              >
+                Don't have an account? <strong>Sign Up</strong>
+              </button>
+            </div>
 
-
+            <button
+              className="primary-btn"
+              disabled={loginLoading}
+            >
+              {loginLoading ? "Logging in..." : "Login"}
+            </button>
           </form>
-
-          
-
-
         </div>
 
         {/* SIGNUP */}
 
-        <div className="form-column signup-slot">
-
+        <div
+          className="form-column signup-slot"
+          {...(isLogin ? ({ inert: "" } as any) : {})}
+        >
           <form className="auth-form" onSubmit={handleSignup}>
-
             <h2>Create Account</h2>
 
+            <label className="visually-hidden" htmlFor="signup-name">
+              Full Name
+            </label>
             <input
+              id="signup-name"
               type="text"
               placeholder="Full Name"
+              aria-label="Full Name"
               value={signupData.name}
               onChange={(e) =>
                 setSignupData({
@@ -228,9 +241,14 @@ function LoginSignup() {
               required
             />
 
+            <label className="visually-hidden" htmlFor="signup-email">
+              Email
+            </label>
             <input
+              id="signup-email"
               type="email"
               placeholder="Email"
+              aria-label="Email"
               value={signupData.email}
               onChange={(e) =>
                 setSignupData({
@@ -242,82 +260,87 @@ function LoginSignup() {
             />
 
             <div className="password-input">
-            <input
-            type={showSignupPassword ? "text" : "password"}
-            placeholder="Password"
-            value={signupData.password}
-            onChange={(e) =>
-            setSignupData({
-            ...signupData,
-            password: e.target.value,
-           })
-           }
-            required
-           />
-
-           <button
-           type="button"
-          className="toggle-password"
-          onClick={() => setShowSignupPassword(!showSignupPassword)}
-           >
-          {showSignupPassword ? <FiEye /> : <FiEyeOff />}
-         </button>
-        </div>
-
-
-         <div className="password-input">
-         <input
-         type={showConfirmPassword ? "text" : "password"}
-         placeholder="Confirm Password"
-         value={signupData.confirmPassword}
-         onChange={(e) =>
-         setSignupData({
-        ...signupData,
-        confirmPassword: e.target.value,
-         })
-        }
-        required
-        />
-
-         <button
-         type="button"
-         className="toggle-password"
-         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-       >
-        {showConfirmPassword ? <FiEye /> : <FiEyeOff />}
-        </button>
-        </div>
-
+              <label className="visually-hidden" htmlFor="signup-password">
+                Password
+              </label>
+              <input
+                id="signup-password"
+                type={showSignupPassword ? "text" : "password"}
+                placeholder="Password"
+                aria-label="Password"
+                value={signupData.password}
+                onChange={(e) =>
+                  setSignupData({
+                    ...signupData,
+                    password: e.target.value,
+                  })
+                }
+                required
+              />
 
               <button
-type="button"
-className="mobile-auth-switch"
-onClick={() => setIsLogin(true)}
+                type="button"
+                className="toggle-password"
+                aria-label={showSignupPassword ? "Hide password" : "Show password"}
+                onClick={() => setShowSignupPassword(!showSignupPassword)}
+              >
+                {showSignupPassword ? <FiEyeOff /> : <FiEye />}
+              </button>
+            </div>
 
->
+            <div className="password-input">
+              <label className="visually-hidden" htmlFor="signup-confirm-password">
+                Confirm Password
+              </label>
+              <input
+                id="signup-confirm-password"
+                type={showConfirmPassword ? "text" : "password"}
+                placeholder="Confirm Password"
+                aria-label="Confirm Password"
+                value={signupData.confirmPassword}
+                onChange={(e) =>
+                  setSignupData({
+                    ...signupData,
+                    confirmPassword: e.target.value,
+                  })
+                }
+                required
+              />
 
-Already have an account? <strong>Sign In</strong> </button>
+              <button
+                type="button"
+                className="toggle-password"
+                aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                {showConfirmPassword ? <FiEyeOff /> : <FiEye />}
+              </button>
+            </div>
 
-        <button
-       className="primary-btn"
-       disabled={signupLoading}
-       >
-       {signupLoading ? "Creating Account..." : "Sign Up"}
-       </button>
+            <div className="auth-links">
+              <button
+                type="button"
+                className="mobile-auth-switch"
+                onClick={() => setIsLogin(true)}
+              >
+                Already have an account? <strong>LogIn</strong>
+              </button>
+            </div>
 
+            <button
+              className="primary-btn"
+              disabled={signupLoading}
+            >
+              {signupLoading ? "Creating Account..." : "Sign Up"}
+            </button>
           </form>
-
         </div>
 
         {/* BLUE PANEL */}
 
         <div className="sliding-overlay">
-
           <div className="overlay-panel">
-
-            <h1>
-              {isLogin ? "Welcome Back!" : "Join Us"}
-            </h1>
+            <h1>{isLogin ? "Welcome Back!" : "Join Us"}</h1>
 
             <p>
               {isLogin
@@ -331,16 +354,9 @@ Already have an account? <strong>Sign In</strong> </button>
             >
               {isLogin ? "Create Account" : "Sign In"}
             </button>
-
           </div>
-
         </div>
-
       </div>
-
-
-
-
     </div>
   );
 }

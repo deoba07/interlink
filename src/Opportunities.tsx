@@ -5,6 +5,8 @@ import "./Opportunities.css";
 import { toast } from "react-hot-toast";
 import InternshipCard from "./InternshipCard";
 import SkeletonCard from "./components/SkeletonCard";
+import LocationSelect from "./components/LocationSelect";
+
 
 type Company = {
   id:number;
@@ -139,17 +141,12 @@ useEffect(() => {
 
           <input
             type="text"
-            placeholder="Search course, role, or location..."
+            placeholder="Search course, role"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
 
-          <input
-            type="text"
-            placeholder="Location..."
-            value={locationValue}
-            onChange={(e) => setLocationValue(e.target.value)}
-          />
+          <LocationSelect value={locationValue} onChange={setLocationValue} />
 
           <button type="submit" className="btn-search">
             Search
@@ -166,7 +163,7 @@ useEffect(() => {
   ))
 ) : currentItems.length === 0 ? (
   <div className="no-results">
-  <div className="no-results-icon">🔍</div>
+  <i className="fas fa-magnifying-glass no-results-icon"></i>
 
   <h3>No internships found</h3>
 
@@ -213,28 +210,29 @@ useEffect(() => {
         </div>
 
         {/* PAGINATION */}
-        <div className="pagination">
+    {!loading && currentItems.length > 0 && (
+     <div className="pagination">
 
-          <button
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage(p => p - 1)}
-          >
-            Prev
-          </button>
+    <button
+      disabled={currentPage === 1}
+      onClick={() => setCurrentPage(p => p - 1)}
+    >
+      Prev
+    </button>
 
-          <span>
-            Page {currentPage} of {totalPages}
-          </span>
+    <span>
+      Page {currentPage} of {totalPages}
+    </span>
 
-          <button
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage(p => p + 1)}
-          >
-            Next
-          </button>
+    <button
+      disabled={currentPage === totalPages}
+      onClick={() => setCurrentPage(p => p + 1)}
+    >
+      Next
+    </button>
 
-        </div>
-
+  </div>
+   )}
       </main>
     </div>
   );

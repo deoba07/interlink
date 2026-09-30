@@ -1,0 +1,184 @@
+/* ==========================================================================
+   LOCATION SELECT — self-contained, safe to drop into any page
+   ========================================================================== */
+
+.loc-select {
+  position: relative;
+  width: 100%;
+  font-family: inherit;
+}
+
+.loc-field-group {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 0 0.75rem;
+  gap: 8px;
+}
+
+.loc-field-group:first-of-type {
+  border-right: 1px solid #e2e8f0;
+}
+
+.loc-field-group input {
+  border: none;
+  outline: none;
+  padding: 0.75rem;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.loc-field-group .icon {
+  flex-shrink: 0;
+  font-size: 1.1rem;
+}
+
+.loc-field-group .loc-select {
+  flex: 1;
+}
+
+/* ==========================================================================
+   TRIGGER — matches the course input exactly: no border, no background,
+   same padding/font as .loc-field-group input
+   ========================================================================== */
+
+.loc-trigger {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  outline: none;
+  background: #ffffff;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-family: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.loc-trigger:hover {
+  border-color: #cbd5e1;
+}
+
+.loc-trigger:focus-visible {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.loc-arrow {
+  flex-shrink: 0;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  transition: transform 0.2s ease;
+}
+
+/* ==========================================================================
+   DROPDOWN PANEL
+   ========================================================================== */
+
+.loc-panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  z-index: 50;
+
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.15);
+
+  overflow: hidden;
+}
+
+.loc-filter {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: none;
+  border-bottom: 1px solid #e2e8f0;
+  outline: none;
+  font-size: 1rem;
+  color: #334155;
+  box-sizing: border-box;
+}
+
+.loc-filter::placeholder {
+  color: #94a3b8;
+}
+
+.loc-filter:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: -2px;
+}
+
+.loc-list {
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.loc-option {
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #334155;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.loc-option:hover {
+  background: #eff6ff;
+}
+
+.loc-option.active {
+  background: #eff6ff;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.loc-empty {
+  padding: 0.75rem;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+/* Scrollbar tidy-up for the option list */
+.loc-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.loc-list::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 999px;
+}
+
+/* ==========================================================================
+   MOBILE
+   ========================================================================== */
+
+@media (max-width: 767px) {
+  .loc-trigger {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.9rem;
+  }
+
+  .loc-panel {
+    max-height: 60vh;
+  }
+
+  .loc-list {
+    max-height: 45vh;
+  }
+}

@@ -24,16 +24,22 @@
     border: 1px solid #e5e7eb;
     border-radius: 8px;
     outline: none;
+    font-size: 16px;
 }
 
-.search-bar button {
-    padding: 10px 16px;
-    background: #2563eb;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+.search-bar .loc-select {
+  min-width: 200px;
 }
+
+.search-bar .loc-trigger {
+  padding: 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  background: #fff;
+}
+
+
 
 /* CARDS */
 .cards-grid {
@@ -148,6 +154,10 @@
     overflow-x: hidden;
   }
 
+  .search-bar .loc-select {
+    width: 100%;
+  }
+
   /* CONTENT */
   .opportunities-content {
     margin-left: 0 !important;
@@ -175,6 +185,7 @@
     padding: 12px;
   }
 
+  
 
   /* INTERNSHIP CARDS */
   .cards-grid {

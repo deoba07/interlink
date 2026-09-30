@@ -1,10 +1,10 @@
-import { useRef, useState } from "react";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
+import { useEffect, useState } from "react";
+import { pdf } from "@react-pdf/renderer";
+import { toast } from "react-hot-toast";
 import "./CVBuilder.css";
 import CVPreview from "./CVPreview";
+import CVDocument from "./components/CVDocument";
 import Sidebar from "./components/Sidebar";
-
 
 
 type Certificate = {
@@ -36,10 +36,14 @@ type CVData = {
   certificates: Certificate[];
 };
 
+const CV_DRAFT_KEY = "naijaintern_cv_draft";
 
+type CVDraft = {
+  cvData: CVData;
+  template: string;
+};
 
-function CVBuilder() {
-   const [cvData, setCvData] = useState<CVData>({
+const defaultCvData: CVData = {
   fullName: "",
   email: "",
   phone: "",
@@ -57,88 +61,100 @@ function CVBuilder() {
   endYear: "",
   cgpa: "",
 
-  skills:[],
+  skills: [],
 
   certificates: [
-  {
-    name: "",
-    organization: "",
-    year: ""
+    {
+      name: "",
+      organization: "",
+      year: "",
+    },
+  ],
+};
+
+const loadDraft = (): CVDraft | null => {
+  try {
+    const raw = localStorage.getItem(CV_DRAFT_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
   }
-]
-});
+};
 
-const [template, setTemplate] = useState("professional");
+const initialDraft = loadDraft();
 
-const [skillInput, setSkillInput] = useState("");
-const [collapsed, setCollapsed] = useState(false);
-const cvRef = useRef<HTMLDivElement>(null);
+
+
+function CVBuilder() {
+  const [cvData, setCvData] = useState<CVData>(
+    initialDraft?.cvData ?? defaultCvData
+  );
+
+  const [template, setTemplate] = useState(
+    initialDraft?.template ?? "professional"
+  );
+
+  const [skillInput, setSkillInput] = useState("");
+  const [collapsed, setCollapsed] = useState(false);
+  
+
+  // Autosave the draft every time anything changes, so refreshing
+  // or coming back later doesn't lose progress.
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        CV_DRAFT_KEY,
+        JSON.stringify({ cvData, template })
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  }, [cvData, template]);
+
+  // Pre-fill name/email from the logged-in account, but only into
+  // fields that are still empty -- never overwrite anything the
+  // user already typed or restored from a saved draft.
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("user");
+      if (!raw) return;
+
+      const user = JSON.parse(raw);
+
+      setCvData((prev) => ({
+        ...prev,
+        fullName: prev.fullName || user.name || "",
+        email: prev.email || user.email || "",
+      }));
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
 
 
 const handleDownload = async () => {
-  if (!cvRef.current) return;
-
   try {
-    const canvas = await html2canvas(cvRef.current, {
-      scale: 2,
-      useCORS: true,
-      backgroundColor: "#ffffff",
-    });
+    const blob = await pdf(
+      <CVDocument cvData={cvData} template={template} />
+    ).toBlob();
 
-    const imgData = canvas.toDataURL("image/png");
-
-    const pdf = new jsPDF({
-      orientation: "portrait",
-      unit: "mm",
-      format: "a4",
-    });
-
-    const pdfWidth = 210;
-    const pdfHeight = 297;
-
-    const imgWidth = pdfWidth;
-    const imgHeight =
-      (canvas.height * imgWidth) / canvas.width;
-
-    let heightLeft = imgHeight;
-    let position = 0;
-
-    pdf.addImage(
-      imgData,
-      "PNG",
-      0,
-      position,
-      imgWidth,
-      imgHeight
-    );
-
-    heightLeft -= pdfHeight;
-
-    while (heightLeft > 0) {
-      position = heightLeft - imgHeight;
-
-      pdf.addPage();
-
-      pdf.addImage(
-        imgData,
-        "PNG",
-        0,
-        position,
-        imgWidth,
-        imgHeight
-      );
-
-      heightLeft -= pdfHeight;
-    }
+    const url = URL.createObjectURL(blob);
 
     const fileName = cvData.fullName
       ? `${cvData.fullName.replace(/\s+/g, "_")}_CV.pdf`
       : "My_CV.pdf";
 
-    pdf.save(fileName);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
+    URL.revokeObjectURL(url);
   } catch (error) {
     console.error("PDF generation failed:", error);
+    toast.error("Couldn't generate the PDF. Please try again.");
   }
 };
 
@@ -190,9 +206,46 @@ const skillSuggestions: Record<string, string[]> = {
   ],
 };
 
+// Maps a wider range of real course names to the skill-suggestion
+// keys above, so "Software Engineering" or "Information Technology"
+// still gets useful suggestions instead of an empty list.
+const courseAliasMap: Record<string, string[]> = {
+  "computer science": [
+    "computer science",
+    "software engineering",
+    "software development",
+    "computer engineering",
+    "information technology",
+    "information systems",
+    "computing",
+    "cs",
+  ],
+  law: ["law", "llb", "legal studies"],
+  nursing: ["nursing", "nursing science"],
+  marketing: ["marketing", "digital marketing"],
+  accounting: ["accounting", "accountancy", "finance"],
+};
 
-const suggestedSkills =
-  skillSuggestions[cvData.course.toLowerCase()] || [];
+const getSuggestedSkills = (course: string): string[] => {
+  const normalized = course.trim().toLowerCase();
+  if (!normalized) return [];
+
+  for (const key of Object.keys(courseAliasMap)) {
+    const aliases = courseAliasMap[key];
+    const matches = aliases.some(
+      (alias) =>
+        normalized.includes(alias) || alias.includes(normalized)
+    );
+
+    if (matches) {
+      return skillSuggestions[key] || [];
+    }
+  }
+
+  return [];
+};
+
+const suggestedSkills = getSuggestedSkills(cvData.course);
 
 
   const addSkill = (skill: string) => {
@@ -261,6 +314,14 @@ const addCertificate = () => {
     ],
   });
 };
+
+const removeCertificate = (index: number) => {
+  setCvData((prev) => ({
+    ...prev,
+    certificates: prev.certificates.filter((_, i) => i !== index),
+  }));
+};
+
   return (
 <div className="cv-layout">
 
@@ -287,6 +348,9 @@ const addCertificate = () => {
     <h2>CV Builder</h2>
     <p>
       Build a professional internship-ready CV and download it as a PDF.
+    </p>
+    <p className="draft-note">
+      Your progress is saved automatically on this device.
     </p>
   </div>
 
@@ -348,9 +412,11 @@ const addCertificate = () => {
 
 </div>
 
-            <h3>Personal Information</h3>
+          <h3>Personal Information</h3>
 
+<label className="sr-only" htmlFor="fullName">Full Name</label>
 <input
+  id="fullName"
   type="text"
   name="fullName"
   placeholder="Full Name"
@@ -358,7 +424,9 @@ const addCertificate = () => {
   onChange={handleChange}
 />
 
-    <input
+<label className="sr-only" htmlFor="email">Email Address</label>
+<input
+  id="email"
   type="email"
   name="email"
   placeholder="Email Address"
@@ -366,15 +434,19 @@ const addCertificate = () => {
   onChange={handleChange}
 />
 
-  <input
-  type="number"
+<label className="sr-only" htmlFor="phone">Phone Number</label>
+<input
+  id="phone"
+  type="tel"
   name="phone"
   placeholder="Phone Number"
   value={cvData.phone}
   onChange={handleChange}
 />
 
-            <input
+<label className="sr-only" htmlFor="location">Location</label>
+<input
+  id="location"
   type="text"
   name="location"
   placeholder="Location"
@@ -382,7 +454,9 @@ const addCertificate = () => {
   onChange={handleChange}
 />
 
-            <input
+<label className="sr-only" htmlFor="linkedIn">LinkedIn</label>
+<input
+  id="linkedIn"
   type="text"
   name="linkedIn"
   placeholder="LinkedIn"
@@ -390,7 +464,9 @@ const addCertificate = () => {
   onChange={handleChange}
 />
 
-            <input
+<label className="sr-only" htmlFor="github">GitHub</label>
+<input
+  id="github"
   type="text"
   name="github"
   placeholder="GitHub"
@@ -398,7 +474,9 @@ const addCertificate = () => {
   onChange={handleChange}
 />
 
+<label htmlFor="portfolio">Portfolio</label>
 <input
+  id="portfolio"
   type="text"
   name="portfolio"
   placeholder="Portfolio"
@@ -408,7 +486,9 @@ const addCertificate = () => {
 
 <h3>Professional Summary</h3>
 
+<label className="sr-only" htmlFor="summary">Professional Summary</label>
 <textarea
+  id="summary"
   name="summary"
   placeholder="Write a short summary about yourself..."
   value={cvData.summary}
@@ -419,6 +499,8 @@ const addCertificate = () => {
     })
   }
 />
+
+
 <h3>Education</h3>
 
 <input
@@ -448,7 +530,9 @@ const addCertificate = () => {
 
 <h3>Skills</h3>
 
+<label className="sr-only" htmlFor="skill">Skills</label>
 <input
+  id="skill"
   type="text"
   placeholder="Type a skill and press Enter"
   value={skillInput}
@@ -474,10 +558,19 @@ const addCertificate = () => {
       {skill}
 
       <span
-        onClick={() => removeSkill(skill)}
-      >
-        ×
-      </span>
+  role="button"
+  tabIndex={0}
+  aria-label={`Remove ${skill}`}
+  onClick={() => removeSkill(skill)}
+  onKeyDown={(e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      removeSkill(skill);
+    }
+  }}
+>
+  ×
+</span>
 
     </div>
 
@@ -513,43 +606,45 @@ const addCertificate = () => {
   >
 
     <input
-      type="text"
-      placeholder="Certificate Name"
-      value={cert.name}
-      onChange={(e) =>
-        handleCertificateChange(
-          index,
-          "name",
-          e.target.value
-        )
-      }
-    />
+  type="text"
+  placeholder="Certificate Name"
+  aria-label={`Certificate ${index + 1} name`}
+  value={cert.name}
+  onChange={(e) =>
+    handleCertificateChange(index, "name", e.target.value)
+  }
+/>
 
-    <input
-      type="text"
-      placeholder="Organization"
-      value={cert.organization}
-      onChange={(e) =>
-        handleCertificateChange(
-          index,
-          "organization",
-          e.target.value
-        )
-      }
-    />
+<input
+  type="text"
+  placeholder="Organization"
+  aria-label={`Certificate ${index + 1} organization`}
+  value={cert.organization}
+  onChange={(e) =>
+    handleCertificateChange(index, "organization", e.target.value)
+  }
+/>
 
-    <input
-      type="number"
-      placeholder="Year"
-      value={cert.year}
-      onChange={(e) =>
-        handleCertificateChange(
-          index,
-          "year",
-          e.target.value
-        )
-      }
-    />
+<input
+  type="number"
+  placeholder="Year"
+  aria-label={`Certificate ${index + 1} year`}
+  value={cert.year}
+  onChange={(e) =>
+    handleCertificateChange(index, "year", e.target.value)
+  }
+/>
+
+    {cvData.certificates.length > 1 && (
+      <button
+        type="button"
+        className="remove-cert-btn"
+        onClick={() => removeCertificate(index)}
+        aria-label="Remove this certificate"
+      >
+        Remove
+      </button>
+    )}
 
   </div>
 
@@ -567,39 +662,33 @@ const addCertificate = () => {
 
 
 
-<div className="date-row">
-
-  <div className="form-group">
-    <label>Start Year</label>
-    <input
-      type="number"
-      value={cvData.startYear}
-      onChange={(e) =>
-        setCvData({
-          ...cvData,
-          startYear: e.target.value,
-        })
-      }
-    />
-  </div>
-
-  <div className="form-group">
-    <label>End Year</label>
-    <input
-      type="number"
-      value={cvData.endYear}
-      onChange={(e) =>
-        setCvData({
-          ...cvData,
-          endYear: e.target.value,
-        })
-      }
-    />
-  </div>
-
+<div className="form-group">
+  <label className="sr-only" htmlFor="startYear">Start Year</label>
+  <input
+    id="startYear"
+    type="number"
+    value={cvData.startYear}
+    onChange={(e) =>
+      setCvData({ ...cvData, startYear: e.target.value })
+    }
+  />
 </div>
 
+<div className="form-group">
+  <label className="sr-only" htmlFor="endYear">End Year</label>
+  <input
+    id="endYear"
+    type="number"
+    value={cvData.endYear}
+    onChange={(e) =>
+      setCvData({ ...cvData, endYear: e.target.value })
+    }
+  />
+</div>
+
+<label className="sr-only" htmlFor="cgpa">CGPA (Optional)</label>
 <input
+  id="cgpa"
   type="text"
   name="cgpa"
   placeholder="CGPA (Optional)"
@@ -614,12 +703,12 @@ const addCertificate = () => {
         {/* RIGHT SIDE */}
         <div className="cv-preview-container">
 
-        <div ref={cvRef} className="cv-preview">
-  <CVPreview
-    cvData={cvData}
-    template={template}
-  />
-</div>
+        <div className="cv-preview">
+        <CVPreview
+        cvData={cvData}
+        template={template}
+        />
+     </div>
 
         </div>
 

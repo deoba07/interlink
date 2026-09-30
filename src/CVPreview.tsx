@@ -1,5 +1,3 @@
-
-
 type Certificate = {
   name: string;
   organization: string;
@@ -36,6 +34,15 @@ type Props = {
   template: string;
 };
 
+// Students often type "linkedin.com/in/name" without the protocol --
+// on its own that renders as a broken relative link, so this adds
+// https:// whenever it's missing.
+const toHref = (value: string) => {
+  const trimmed = value.trim();
+  if (!trimmed) return "";
+  return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+};
+
 function CVPreview({
   cvData,
   template,
@@ -48,12 +55,35 @@ function CVPreview({
       <h1>{cvData.fullName || "Your Name"}</h1>
 
       <p>{cvData.email || "your@email.com"}</p>
-      <p>{cvData.phone}</p>
-      <p>{cvData.location}</p>
+      {cvData.phone && <p>Phone: {cvData.phone}</p>}
+      {cvData.location && <p>Location: {cvData.location}</p>}
 
-      {cvData.linkedIn && <p>{cvData.linkedIn}</p>}
-      {cvData.github && <p>{cvData.github}</p>}
-      {cvData.portfolio && <p>{cvData.portfolio}</p>}
+      {cvData.linkedIn && (
+        <p>
+          LinkedIn:{" "}
+          <a href={toHref(cvData.linkedIn)} target="_blank" rel="noreferrer">
+            {cvData.linkedIn}
+          </a>
+        </p>
+      )}
+
+      {cvData.github && (
+        <p>
+          GitHub:{" "}
+          <a href={toHref(cvData.github)} target="_blank" rel="noreferrer">
+            {cvData.github}
+          </a>
+        </p>
+      )}
+
+      {cvData.portfolio && (
+        <p>
+          Portfolio:{" "}
+          <a href={toHref(cvData.portfolio)} target="_blank" rel="noreferrer">
+            {cvData.portfolio}
+          </a>
+        </p>
+      )}
 
       <hr />
 

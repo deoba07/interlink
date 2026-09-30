@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 import InternshipCard from "./InternshipCard";
 import SkeletonCard from "./components/SkeletonCard";
 import Navbar from "./components/Navbar";
+import LocationSelect from "./components/LocationSelect";
 
 type Company = {
   id: number;
@@ -101,34 +102,26 @@ function LandingPg() {
         {/* SEARCH BAR (UNCHANGED CLASSNAMES) */}
         <form className="search-bar" onSubmit={handleSearch}>
 
-          <div className="input-group">
-            <span className="icon">🎓</span>
+  <div className="loc-field-group">
+    <i className="fas fa-graduation-cap icon"></i>
+    <input
+      type="text"
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      placeholder="Your course of study"
+    />
+  </div>
 
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Your course of study"
-            />
-          </div>
+  <div className="loc-field-group">
+    <i className="fas fa-location-dot icon"></i>
+    <LocationSelect value={location} onChange={setLocation} />
+  </div>
 
-          <div className="input-group">
-            <span className="icon">📍</span>
+  <button className="btn-search" type="submit">
+    Search Internships
+  </button>
 
-            <input
-              type="text"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              placeholder="Preferred Location"
-            />
-          </div>
-
-          <button className="btn-search"
-           type="submit">
-            Search Internships
-          </button>
-
-        </form>
+</form>
       </div>
 
       
@@ -139,7 +132,7 @@ function LandingPg() {
         </div>
 
         <Link to="/opportunities" className="view-all-link">
-          View Opportunities →
+          View Opportunities <i className="fas fa-arrow-right"></i>
         </Link>
       </div>
 
@@ -164,25 +157,25 @@ function LandingPg() {
 
         <div className="stat-box">
           <i className="fas fa-briefcase"></i>
-          <h1>200+</h1>
+          <h4>100+</h4>
           <p>Internship Opportunities</p>
         </div>
 
         <div className="stat-box">
           <i className="fas fa-file-alt"></i>
-          <h1>50+</h1>
+          <h4>50+</h4>
           <p>Partner Companies</p>
         </div>
 
         <div className="stat-box">
           <i className="fas fa-users"></i>
-          <h1>36</h1>
+          <h4>36</h4>
           <p>States Covered</p>
         </div>
 
         <div className="stat-box">
           <i className="fas fa-trophy"></i>
-          <h1>700+</h1>
+          <h4>150+</h4>
           <p>Students connected</p>
         </div>
 

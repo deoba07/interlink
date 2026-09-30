@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate , useLocation} from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useState } from "react";
 import "./Navbar.css";
@@ -8,6 +8,7 @@ function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const isLoggedIn = !!localStorage.getItem("token");
+  const location = useLocation();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -47,10 +48,10 @@ function Navbar() {
 
       <div className={`nav-links-wrapper ${mobileMenuOpen ? "mobile-open" : ""}`}>
         <ul className="nav-menu">
-          <li>
+          <li className={location.pathname === "/" ? "active" : ""}>
             <Link to="/" onClick={() => setMobileMenuOpen(false)}>Discover</Link>
           </li>
-          <li>
+          <li className={location.pathname === "/Guide" ? "active" : ""}>
             <Link to="/Guide" onClick={() => setMobileMenuOpen(false)}>Guide</Link>
           </li>
           <li>
