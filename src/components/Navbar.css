@@ -53,6 +53,8 @@ nav {
   font-weight: 600;
 }
 
+
+
 .nav-menu li a:hover {
   color: #0f172a;
 }
@@ -69,6 +71,16 @@ nav {
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease;
+}
+
+.nav-sign a:hover {
+  color: #0f172a;
+}
+
+.nav-sign a.active {
+  color: #0f172a;
+  border-bottom: 2px solid #3b82f6;
+  font-weight: 600;
 }
 
 .nav-button {

@@ -3,6 +3,7 @@ import "./LoginSignup.css";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import Navbar from "./components/Navbar";
 
 function LoginSignup() {
   const navigate = useNavigate();
@@ -125,6 +126,8 @@ function LoginSignup() {
   };
 
   return (
+    <>
+    <Navbar />
     <div className="auth-page">
       <div
         className={`auth-container ${
@@ -358,6 +361,7 @@ function LoginSignup() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

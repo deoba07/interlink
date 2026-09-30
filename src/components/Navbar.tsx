@@ -79,7 +79,7 @@ function Navbar() {
               Logout
             </button>
           ) : (
-            <Link to="/LoginSignup" onClick={() => setMobileMenuOpen(false)}>
+            <Link to="/LoginSignup"  className={location.pathname === "/LoginSignup" ? "active" : ""} onClick={() => setMobileMenuOpen(false)}>
               Get Started
             </Link>
           )}
