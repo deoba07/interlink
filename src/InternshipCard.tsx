@@ -75,7 +75,7 @@ function InternshipCard({ internship, showDelete, onDelete }: InternshipCardProp
               <hr />
                <div className="card-footer">
               <Link to={`/internship/${internship.id}`} className="view-details">
-                View Details →
+                View Details <i className="fas fa-arrow-right"></i>
               </Link>
 
                {showDelete && (

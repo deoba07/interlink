@@ -103,7 +103,7 @@ function LandingPg() {
         <form className="search-bar" onSubmit={handleSearch}>
 
   <div className="loc-field-group">
-    <i className="fas fa-graduation-cap icon"></i>
+    <i className="fas fa-graduation-cap icon-course"></i>
     <input
       type="text"
       value={search}
@@ -113,7 +113,7 @@ function LandingPg() {
   </div>
 
   <div className="loc-field-group">
-    <i className="fas fa-location-dot icon"></i>
+    <i className="fas fa-map-pin icon-location"></i>
     <LocationSelect value={location} onChange={setLocation} />
   </div>
 

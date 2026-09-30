@@ -98,6 +98,18 @@
   border-bottom: none;
 }
 
+.icon-smile {
+  color: #f59e0b; 
+}
+
+.icon-saved {
+  color: #2563eb; 
+}
+
+.icon-applied {
+  color: #10b981; 
+}
+
 /* LOGOUT */
 .logout-btn {
   margin-top: 30px;

@@ -3,6 +3,7 @@ import Sidebar from "./components/Sidebar";
 import "./Profile.css";
 import SkeletonProfile from "./components/SkeletonProfile";
 
+
 type ProfileData = {
   name: string;
   email: string;
@@ -83,7 +84,7 @@ function Profile() {
                 {initials}
               </div>
 
-              <h2>Hello, {profile.name} 👋</h2>
+              <h2>Hello, {profile.name} <i className="fas fa-smile icon-smile"></i> </h2>
 
               <p>{profile.email}</p>
 
@@ -92,12 +93,12 @@ function Profile() {
             <div className="stats-grid">
 
               <div className="stat-card">
-                <h3>⭐ Saved</h3>
+                <h3> <i className="fas fa-bookmark icon-saved"></i> Saved</h3>
                 <span>{profile.savedCount}</span>
               </div>
 
               <div className="stat-card">
-                <h3>✅ Applied</h3>
+                <h3> <i className="fas fa-check-circle icon-applied"></i> Applied</h3>
                 <span>{profile.appliedCount}</span>
               </div>
 
@@ -108,11 +109,11 @@ function Profile() {
               <h3>Recent Activity</h3>
 
               <div className="activity-item">
-                ⭐ Your recent saved internships will appear here.
+                <i className="fas fa-bookmark icon-saved"></i> Your recent saved internships will appear here.
               </div>
 
               <div className="activity-item">
-                ✅ Your recent applications will appear here.
+                <i className="fas fa-check-circle icon-applied"></i> Your recent applications will appear here.
               </div>
 
             </div>

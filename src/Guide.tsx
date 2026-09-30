@@ -41,6 +41,11 @@ const steps: Step[] = [
     description:
       "Use the link or email on each listing to apply straight to the company and know more about the opportunity with the company no extra steps in between.",
   },
+  {
+  title: "Know where our role ends",
+  description:
+    "We don't submit applications or track their progress, we simply help you find real opportunities across Nigeria that you can apply to yourself. After that, you're on your way, talking directly with the company from there.",
+},
 ];
 
 const faqs: FAQ[] = [

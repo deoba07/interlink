@@ -164,7 +164,13 @@ body {
 
 
 
+.icon-course {
+  color: #2563eb; /* blue, matches your brand, no strong competing meaning */
+}
 
+.icon-location {
+  color: #ef4444; /* red, the standard "map pin" color */
+}
 
 
 
