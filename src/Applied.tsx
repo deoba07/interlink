@@ -55,7 +55,7 @@ function Applied() {
 
    const handleDelete = async (id: number) => {
   try {
-    const res = await fetch(`https://backlink-6l9m.onrender.com/applied/${id}`, {
+    const res = await fetch(`https://backlink-6l9m.onrender.com/internships/applied/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

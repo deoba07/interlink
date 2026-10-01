@@ -52,7 +52,7 @@ function CVPreview({
    <div className={`cv-document ${template}`}>
 
       {/* Header */}
-      <h1>{cvData.fullName || "Your Name"}</h1>
+      <h1>{cvData.fullName || "Your Name"}</h1><br></br>
 
       <p>{cvData.email || "your@email.com"}</p>
       {cvData.phone && <p>Phone: {cvData.phone}</p>}

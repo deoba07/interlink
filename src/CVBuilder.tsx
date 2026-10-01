@@ -138,26 +138,46 @@ const handleDownload = async () => {
       <CVDocument cvData={cvData} template={template} />
     ).toBlob();
 
-    const url = URL.createObjectURL(blob);
-
     const fileName = cvData.fullName
       ? `${cvData.fullName.replace(/\s+/g, "_")}_CV.pdf`
       : "My_CV.pdf";
 
+    const file = new File([blob], fileName, { type: "application/pdf" });
+
+    const nav = navigator as Navigator & {
+      canShare?: (data: { files: File[] }) => boolean;
+      share?: (data: { files: File[]; title?: string }) => Promise<void>;
+    };
+
+    if (nav.canShare?.({ files: [file] }) && nav.share) {
+      try {
+        await nav.share({ files: [file], title: fileName });
+        toast.success("CV ready, saved from the share sheet.");
+        return;
+      } catch (shareErr) {
+        // User tapped "Cancel" on the share sheet -- not a real error,
+        // so don't show a failure toast, just stop quietly.
+        if ((shareErr as Error).name === "AbortError") return;
+        throw shareErr;
+      }
+    }
+
+    // Desktop fallback: normal blob-link download
+    const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
     link.download = fileName;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-
     URL.revokeObjectURL(url);
+
+    toast.success("CV downloaded successfully.");
   } catch (error) {
     console.error("PDF generation failed:", error);
     toast.error("Couldn't generate the PDF. Please try again.");
   }
 };
-
 
 const skillSuggestions: Record<string, string[]> = {
   "computer science": [
