@@ -163,7 +163,7 @@ useEffect(() => {
   ))
 ) : currentItems.length === 0 ? (
   <div className="no-results">
-  <i className="fas fa-magnifying-glass no-results-icon"></i>
+  
 
   <h3>No internships found</h3>
 

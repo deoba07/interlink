@@ -1,6 +1,6 @@
 .profile-layout {
   min-height: 100vh;
-  background: #f7f8fc;
+  background: var(--bg, #f7f8fc);
 }
 
 .profile-content {
@@ -11,7 +11,8 @@
 
 /* PROFILE CARD */
 .profile-card {
-  background: #fff;
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--border, transparent);
   border-radius: 20px;
   padding: 35px;
   text-align: center;
@@ -38,10 +39,11 @@
 
 .profile-card h2 {
   margin-bottom: 8px;
+  color: var(--heading, inherit);
 }
 
 .profile-card p {
-  color: #777;
+  color: var(--muted, #777);
 }
 
 /* STATS */
@@ -56,7 +58,8 @@
 }
 
 .stat-card {
-  background: #fff;
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--border, transparent);
   border-radius: 18px;
   padding: 25px;
   text-align: center;
@@ -65,19 +68,20 @@
 
 .stat-card h3 {
   margin-bottom: 15px;
-  color: #555;
+  color: var(--muted, #555);
 }
 
 .stat-card span {
   font-size: 36px;
   font-weight: 700;
-  color: #2563eb;
+  color: var(--primary, #2563eb);
 }
 
 /* ACTIVITY */
 .activity-card {
   margin: 30px auto 0;
-  background: #fff;
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--border, transparent);
   border-radius: 18px;
   padding: 25px;
   max-width: 900px;
@@ -86,12 +90,13 @@
 
 .activity-card h3 {
   margin-bottom: 20px;
+  color: var(--heading, inherit);
 }
 
 .activity-item {
   padding: 15px 0;
-  border-bottom: 1px solid #eee;
-  color: #555;
+  border-bottom: 1px solid var(--border, #eee);
+  color: var(--text, #555);
 }
 
 .activity-item:last-child {
@@ -99,15 +104,15 @@
 }
 
 .icon-smile {
-  color: #f59e0b; 
+  color: #f59e0b;
 }
 
 .icon-saved {
-  color: #2563eb; 
+  color: #2563eb;
 }
 
 .icon-applied {
-  color: #10b981; 
+  color: #10b981;
 }
 
 /* LOGOUT */

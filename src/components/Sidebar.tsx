@@ -2,6 +2,7 @@ import { NavLink, Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import "./Sidebar.css";
 import { useState } from "react";
+import { useTheme } from "../ThemeContext";
 
 
 
@@ -16,6 +17,7 @@ function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
 const isLoggedIn = !!localStorage.getItem("token");
+const { theme, toggleTheme } = useTheme();
 
 const handleLogout = () => {
   localStorage.removeItem("token");
@@ -41,6 +43,8 @@ const handleMobileClose = () => {
     setMobileOpen(false);
   }
 };
+
+const themeLabel = theme === "dark" ? "Light Mode" : "Dark Mode";
 
   return (
   <>
@@ -151,6 +155,23 @@ const handleMobileClose = () => {
     <span className="tooltip">Profile</span>
   </NavLink>
 )}
+
+{/* Theme toggle: styled like every other sidebar row */}
+          <button
+            type="button"
+            className="sidebar-link"
+            onClick={toggleTheme}
+            aria-label={
+              theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+            }
+          >
+            <i
+              className={theme === "dark" ? "fas fa-sun" : "fas fa-moon"}
+              aria-hidden="true"
+            ></i>
+            <span className="label fade-text">{themeLabel}</span>
+            <span className="tooltip">{themeLabel}</span>
+          </button>
 
        {isLoggedIn ? (
   <button className="sidebar-link" onClick={handleLogout}>

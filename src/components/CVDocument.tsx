@@ -6,6 +6,15 @@ type Certificate = {
   year: string;
 };
 
+type Education = {
+  school: string;
+  degree: string;
+  course: string;
+  startYear: string;
+  endYear: string;
+  cgpa: string;
+};
+
 type CVData = {
   fullName: string;
   email: string;
@@ -17,12 +26,7 @@ type CVData = {
 
   summary: string;
 
-  school: string;
-  degree: string;
-  course: string;
-  startYear: string;
-  endYear: string;
-  cgpa: string;
+  education: Education[];
 
   skills: string[];
 
@@ -122,6 +126,9 @@ const styles = StyleSheet.create({
   certBlock: {
     marginBottom: 8,
   },
+  educationBlock: {
+    marginBottom: 8,
+  },
   certName: {
     fontFamily: "Helvetica-Bold",
     marginBottom: 1,
@@ -197,25 +204,29 @@ function CVDocument({ cvData, template }: Props) {
         {/* Education */}
         <Text style={[styles.h2, { fontFamily: boldFont }]}>Education</Text>
 
-        {!!cvData.school && (
-          <Text style={[styles.schoolName, { fontFamily: boldFont }]}>{cvData.school}</Text>
-        )}
+        {cvData.education.map((edu, index) => (
+          <View key={index} style={styles.educationBlock}>
+            {!!edu.school && (
+              <Text style={[styles.schoolName, { fontFamily: boldFont }]}>{edu.school}</Text>
+            )}
 
-        {(cvData.degree || cvData.course) && (
-          <Text style={styles.paragraph}>
-            {cvData.degree} {cvData.course}
-          </Text>
-        )}
+            {(edu.degree || edu.course) && (
+              <Text style={styles.paragraph}>
+                {edu.degree} {edu.course}
+              </Text>
+            )}
 
-        {(cvData.startYear || cvData.endYear) && (
-          <Text style={styles.paragraph}>
-            {cvData.startYear}
-            {cvData.startYear && cvData.endYear ? " - " : ""}
-            {cvData.endYear}
-          </Text>
-        )}
+            {(edu.startYear || edu.endYear) && (
+              <Text style={styles.paragraph}>
+                {edu.startYear}
+                {edu.startYear && edu.endYear ? " - " : ""}
+                {edu.endYear}
+              </Text>
+            )}
 
-        {!!cvData.cgpa && <Text style={styles.paragraph}>CGPA: {cvData.cgpa}</Text>}
+            {!!edu.cgpa && <Text style={styles.paragraph}>CGPA: {edu.cgpa}</Text>}
+          </View>
+        ))}
 
         <View style={styles.divider} />
 

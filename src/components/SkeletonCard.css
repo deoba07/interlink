@@ -1,12 +1,20 @@
 .skeleton-card {
-    background: white;
-    border: 1px solid #e5e7eb;
+    background: var(--card-bg, white);
+    border: 1px solid var(--border, #e5e7eb);
     border-radius: 16px;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 18px;
     min-height: 260px;
+
+    /* Colours for the grey placeholder blocks and the shimmer sweep */
+    --skeleton-block: var(--border, #e5e7eb);
+    --skeleton-shine: rgba(255, 255, 255, 0.7);
+}
+
+[data-theme="dark"] .skeleton-card {
+    --skeleton-shine: rgba(255, 255, 255, 0.08);
 }
 
 /* Header */
@@ -21,7 +29,9 @@
     width: 58px;
     height: 58px;
     border-radius: 50%;
-    background: #e5e7eb;
+    background: var(--skeleton-block);
+    position: relative;
+    overflow: hidden;
 }
 
 .skeleton-company {
@@ -30,7 +40,7 @@
 
 .skeleton-line {
     height: 12px;
-    background: #e5e7eb;
+    background: var(--skeleton-block);
     border-radius: 8px;
     position: relative;
     overflow: hidden;
@@ -65,20 +75,11 @@
     margin-top: auto;
 }
 
-.skeleton-logo {
-    width: 58px;
-    height: 58px;
-    border-radius: 50%;
-    background: #e5e7eb;
-    position: relative;
-    overflow: hidden;
-}
-
 .skeleton-button {
     width: 120px;
     height: 40px;
     border-radius: 8px;
-    background: #e5e7eb;
+    background: var(--skeleton-block);
     position: relative;
     overflow: hidden;
 }
@@ -95,16 +96,22 @@
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(255,255,255,.7),
+        var(--skeleton-shine),
         transparent
     );
     animation: shimmer 1.3s infinite;
 }
 
 @keyframes shimmer {
-
     100% {
         transform: translateX(100%);
     }
+}
 
+@media (prefers-reduced-motion: reduce) {
+    .skeleton-line::after,
+    .skeleton-logo::after,
+    .skeleton-button::after {
+        animation: none;
+    }
 }

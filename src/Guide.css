@@ -1,19 +1,36 @@
-
 :root {
-  --navy: #0f172a;      /* matches your site's dark heading color */
-  --amber: #2563eb;     /* replaced with your site's main blue */
-  --paper: #F7F8FA;
-  --ink: #1D2129;
-  --slate: #5B6472;
-  --panel: rgba(37, 99, 235, 0.05);   /* updated to a blue-tinted panel */
+  --navy: #0f172a;      /* headings */
+  --amber: #2563eb;     /* accent blue */
+  --paper: #F7F8FA;     /* page background */
+  --ink: #1D2129;       /* body text */
+  --slate: #5B6472;     /* secondary text */
+  --panel: rgba(37, 99, 235, 0.05);
   --hairline: rgba(37, 99, 235, 0.12);
+  --step-bg: #0f172a;   /* numbered circles */
+  --step-fg: #ffffff;
+  --back-link: #64748b;
+  --back-link-hover: #0f172a;
 }
 
-
+/* Dark mode: Guide's own variables, tied to your global theme variables
+   where they exist (the second value is a fallback if one isn't defined). */
+[data-theme="dark"] {
+  --navy: var(--heading, #f1f5f9);
+  --amber: #3b82f6;
+  --paper: var(--bg, #0b0f19);
+  --ink: var(--text, #e5e7eb);
+  --slate: var(--muted, #94a3b8);
+  --panel: rgba(59, 130, 246, 0.1);
+  --hairline: rgba(59, 130, 246, 0.25);
+  --step-bg: #2563eb;
+  --step-fg: #ffffff;
+  --back-link: var(--muted, #94a3b8);
+  --back-link-hover: var(--heading, #f1f5f9);
+}
 
 .back-to-discover {
   display: inline-block;
-  color: #64748b;
+  color: var(--back-link);
   text-decoration: none;
   font-size: 0.95rem;
   font-weight: 500;
@@ -22,7 +39,7 @@
 }
 
 .back-to-discover:hover {
-  color: #0f172a;
+  color: var(--back-link-hover);
 }
 
 .guide-page {
@@ -94,8 +111,8 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: var(--navy);
-  color: #fff;
+  background: var(--step-bg);
+  color: var(--step-fg);
   display: flex;
   align-items: center;
   justify-content: center;

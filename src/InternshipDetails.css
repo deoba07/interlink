@@ -107,6 +107,12 @@
   cursor: not-allowed;
 }
 
+.contact-btn,
+.contact-btn:hover,
+.contact-btn:visited {
+  text-decoration: none;
+}
+
 /* SECONDARY — Save Internship (outline) */
 .save-btn {
   background: transparent;

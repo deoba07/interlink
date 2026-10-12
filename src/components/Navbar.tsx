@@ -1,11 +1,14 @@
 import { Link, useNavigate , useLocation} from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useState } from "react";
+import { useTheme } from "../ThemeContext";
 import "./Navbar.css";
+import NaijaIntern from "../assets/NaijaIntern.jpeg";
 
 function Navbar() {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const isLoggedIn = !!localStorage.getItem("token");
   const location = useLocation();
@@ -26,10 +29,39 @@ function Navbar() {
     navigate("/cv-builder");
   };
 
+
+  const themeLabel =
+    theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+ 
+  // The same button is rendered in two places: next to the hamburger on
+  // phones, and next to the account link on desktop. CSS shows only one.
+  const renderThemeToggle = (placement: "mobile" | "desktop") => (
+    <button
+      type="button"
+      className={`theme-toggle theme-toggle--${placement}`}
+      onClick={toggleTheme}
+      aria-label={themeLabel}
+      title={themeLabel}
+    >
+      <i
+        className={theme === "dark" ? "fas fa-sun" : "fas fa-moon"}
+        aria-hidden="true"
+      ></i>
+    </button>
+  );
+
   return (
     <nav>
       <div className="nav-top-row">
         <h2 className="nav-brand">NaijaIntern</h2>
+        <img
+          src={NaijaIntern}
+          alt="NaijaIntern Logo"
+          className="nav-logo"
+        />
+
+
+      {renderThemeToggle("mobile")}
 
         <button
           className="nav-hamburger"

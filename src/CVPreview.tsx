@@ -4,6 +4,14 @@ type Certificate = {
   year: string;
 };
 
+type Education = {
+  school: string;
+  degree: string;
+  course: string;
+  startYear: string;
+  endYear: string;
+  cgpa: string;
+};
 
 type CVData = {
   fullName: string;
@@ -16,12 +24,7 @@ type CVData = {
 
   summary: string;
 
-  school: string;
-  degree: string;
-  course: string;
-  startYear: string;
-  endYear: string;
-  cgpa: string;
+  education: Education[];
 
   skills: string[];
 
@@ -52,7 +55,7 @@ function CVPreview({
    <div className={`cv-document ${template}`}>
 
       {/* Header */}
-      <h1>{cvData.fullName || "Your Name"}</h1><br></br>
+      <h1>{cvData.fullName || "Your Name"}</h1>
 
       <p>{cvData.email || "your@email.com"}</p>
       {cvData.phone && <p>Phone: {cvData.phone}</p>}
@@ -99,23 +102,27 @@ function CVPreview({
       {/* Education */}
       <h2>Education</h2>
 
-      <h3>{cvData.school}</h3>
+      {cvData.education.map((edu, index) => (
+        <div key={index} style={{ marginBottom: index < cvData.education.length - 1 ? "16px" : 0 }}>
+          {edu.school && <h3>{edu.school}</h3>}
 
-      <p>
-        {cvData.degree} {cvData.course}
-      </p>
+          {(edu.degree || edu.course) && (
+            <p>
+              {edu.degree} {edu.course}
+            </p>
+          )}
 
-      <p>
-        {cvData.startYear}
-        {cvData.startYear && cvData.endYear ? " - " : ""}
-        {cvData.endYear}
-      </p>
+          {(edu.startYear || edu.endYear) && (
+            <p>
+              {edu.startYear}
+              {edu.startYear && edu.endYear ? " - " : ""}
+              {edu.endYear}
+            </p>
+          )}
 
-      {cvData.cgpa && (
-        <p>
-          CGPA: {cvData.cgpa}
-        </p>
-      )}
+          {edu.cgpa && <p>CGPA: {edu.cgpa}</p>}
+        </div>
+      ))}
 
       <hr />
 

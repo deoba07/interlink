@@ -1,7 +1,7 @@
 .opportunities-layout {
     display: flex;
     min-height: 100vh;
-    background: #f9fafb;
+    background: var(--bg);
 }
 
 /* CONTENT AREA */
@@ -21,10 +21,11 @@
 
 .search-bar input {
     padding: 10px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border);
     border-radius: 8px;
     outline: none;
-    font-size: 16px;
+    background: var(--card-bg);
+    color: var(--text);
 }
 
 .search-bar .loc-select {
@@ -33,10 +34,11 @@
 
 .search-bar .loc-trigger {
   padding: 10px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border);
   border-radius: 8px;
   font-size: 0.85rem;
-  background: #fff;
+  background: var(--card-bg);
+  color: var(--text);
 }
 
 
@@ -49,10 +51,10 @@
 }
 
 .card {
-    background: white;
+    background: var(--card-bg);
     padding: 15px;
     border-radius: 12px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border);
 
     height: 100%;
     display: flex;
@@ -78,14 +80,14 @@
 .pagination button {
     padding: 8px 12px;
     border: none;
-    background: #111827;
-    color: white;
+    background: var(--heading);
+    color: var(--bg);
     border-radius: 6px;
     cursor: pointer;
 }
 
 .pagination button:disabled {
-    background: #9ca3af;
+    background: var(--muted);
     cursor: not-allowed;
 }
 
@@ -104,14 +106,14 @@
   margin: 20px 0;
  
   border-radius: 12px;
-  background: #ffffff;
+  background: var(--card-bg);
 }
 
 .no-results h3 {
   margin: 0 0 10px;
   font-size: 1.4rem;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--heading);
 }
 
 .no-results p {
@@ -119,7 +121,7 @@
   margin: 0;
   font-size: 0.95rem;
   line-height: 1.6;
-  color: #6b7280;
+  color: var(--muted);
 }
 
 .no-results-icon {
@@ -130,7 +132,7 @@
   justify-content: center;
   margin-bottom: 16px;
   border-radius: 50%;
-  background: #f3f4f6;
+  background: var(--border);
   font-size: 24px;
 }
 
@@ -259,14 +261,3 @@
     font-size: 12px;
   }
 }
-
-
-
-
-
-
-
-
-
-
-

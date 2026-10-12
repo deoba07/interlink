@@ -11,6 +11,15 @@ type Certificate = {
   year: string;
 };
 
+type Education = {
+  school: string;
+  degree: string;
+  course: string;
+  startYear: string;
+  endYear: string;
+  cgpa: string;
+};
+
 type CVData = {
   fullName: string;
   email: string;
@@ -22,12 +31,7 @@ type CVData = {
 
   summary: string;
 
-  school: string;
-  degree: string;
-  course: string;
-  startYear: string;
-  endYear: string;
-  cgpa: string;
+  education: Education[];
 
   skills: string[];
 
@@ -52,12 +56,16 @@ const defaultCvData: CVData = {
 
   summary: "",
 
-  school: "",
-  degree: "",
-  course: "",
-  startYear: "",
-  endYear: "",
-  cgpa: "",
+  education: [
+    {
+      school: "",
+      degree: "",
+      course: "",
+      startYear: "",
+      endYear: "",
+      cgpa: "",
+    },
+  ],
 
   skills: [],
 
@@ -81,12 +89,30 @@ const loadDraft = (): CVDraft | null => {
 
 const initialDraft = loadDraft();
 
+// A draft saved before "education" became an array won't have it at
+// all (or the old single-object shape), so merge onto fresh defaults
+// rather than trusting the saved shape directly -- this is what was
+// crashing the page on load.
+const initialCvData: CVData = {
+  ...defaultCvData,
+  ...initialDraft?.cvData,
+  education:
+    initialDraft?.cvData?.education && Array.isArray(initialDraft.cvData.education)
+      ? initialDraft.cvData.education
+      : defaultCvData.education,
+  certificates:
+    initialDraft?.cvData?.certificates && Array.isArray(initialDraft.cvData.certificates)
+      ? initialDraft.cvData.certificates
+      : defaultCvData.certificates,
+};
+
+
+
+
 
 
 function CVBuilder() {
-  const [cvData, setCvData] = useState<CVData>(
-    initialDraft?.cvData ?? defaultCvData
-  );
+  const [cvData, setCvData] = useState<CVData>(initialCvData);
 
   const [template, setTemplate] = useState(
     initialDraft?.template ?? "professional"
@@ -270,7 +296,7 @@ const getSuggestedSkills = (course: string): string[] => {
   return [];
 };
 
-const suggestedSkills = getSuggestedSkills(cvData.course);
+const suggestedSkills = getSuggestedSkills(cvData.education[0]?.course ?? "");
 
 
   const addSkill = (skill: string) => {
@@ -346,6 +372,37 @@ const removeCertificate = (index: number) => {
     certificates: prev.certificates.filter((_, i) => i !== index),
   }));
 };
+
+
+
+const handleEducationChange = (
+  index: number,
+  field: keyof Education,
+  value: string
+) => {
+  const updated = [...cvData.education];
+  updated[index] = { ...updated[index], [field]: value };
+  setCvData({ ...cvData, education: updated });
+};
+
+const addEducation = () => {
+  setCvData({
+    ...cvData,
+    education: [
+      ...cvData.education,
+      { school: "", degree: "", course: "", startYear: "", endYear: "", cgpa: "" },
+    ],
+  });
+};
+
+const removeEducation = (index: number) => {
+  setCvData((prev) => ({
+    ...prev,
+    education: prev.education.filter((_, i) => i !== index),
+  }));
+};
+
+
 
   return (
 <div className="cv-layout">
@@ -528,29 +585,73 @@ const removeCertificate = (index: number) => {
 
 <h3>Education</h3>
 
-<input
-  type="text"
-  name="school"
-  placeholder="University / Institution"
-  value={cvData.school}
-  onChange={handleChange}
-/>
+{cvData.education.map((edu, index) => (
+  <div key={index} className="education-item">
+    <input
+      type="text"
+      name="school"
+      placeholder="University / Institution"
+      value={edu.school}
+      onChange={(e) => handleEducationChange(index, "school", e.target.value)}
+    />
+    {cvData.education.length > 1 && (
+      <button
+        type="button"
+        className="remove-edu-btn"
+        onClick={() => removeEducation(index)}
+        aria-label="Remove this education entry"
+      >
+        Remove
+      </button>
+    )}
+    <input
+      type="text"
+      name="degree"
+      placeholder="Degree (e.g. B.Sc)"
+      value={edu.degree}
+      onChange={(e) => handleEducationChange(index, "degree", e.target.value)}
+    />
+    <input
+      type="text"
+      name="course"
+      placeholder="Course of Study"
+      value={edu.course}
+      onChange={(e) => handleEducationChange(index, "course", e.target.value)}
+    />
+    <input
+      type="number"
+      name="startYear"
+      placeholder="e.g. 2023"
+      value={edu.startYear}
+      onChange={(e) => handleEducationChange(index, "startYear", e.target.value)}
+    />
+    <input
+      type="number"
+      name="endYear"
+      placeholder="e.g. 2027"
+      value={edu.endYear}
+      onChange={(e) => handleEducationChange(index, "endYear", e.target.value)}
+    />
+    <input
+      type="text"
+      name="cgpa"
+      placeholder="CGPA (Optional)"
+      value={edu.cgpa}
+      onChange={(e) => handleEducationChange(index, "cgpa", e.target.value)}
+    />
+  </div>
+))}
 
-<input
-  type="text"
-  name="degree"
-  placeholder="Degree (e.g. B.Sc)"
-  value={cvData.degree}
-  onChange={handleChange}
-/>
+<button
+  type="button"
+  className="add-btn"
+  onClick={addEducation}
+>
+  + Add Education
+</button>
 
-<input
-  type="text"
-  name="course"
-  placeholder="Course of Study"
-  value={cvData.course}
-  onChange={handleChange}
-/>
+
+
 
 
 <h3>Skills</h3>
@@ -683,45 +784,7 @@ const removeCertificate = (index: number) => {
   + Add Certificate
 </button>
 
-
-
-
-
-<div className="form-group">
-  <label className="sr-only" htmlFor="startYear">Start Year</label>
-  <input
-    id="startYear"
-    type="number"
-    value={cvData.startYear}
-    onChange={(e) =>
-      setCvData({ ...cvData, startYear: e.target.value })
-    }
-  />
 </div>
-
-<div className="form-group">
-  <label className="sr-only" htmlFor="endYear">End Year</label>
-  <input
-    id="endYear"
-    type="number"
-    value={cvData.endYear}
-    onChange={(e) =>
-      setCvData({ ...cvData, endYear: e.target.value })
-    }
-  />
-</div>
-
-<label className="sr-only" htmlFor="cgpa">CGPA (Optional)</label>
-<input
-  id="cgpa"
-  type="text"
-  name="cgpa"
-  placeholder="CGPA (Optional)"
-  value={cvData.cgpa}
-  onChange={handleChange}
-/>
-
-          </div>
 
         </div>
 

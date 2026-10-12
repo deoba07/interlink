@@ -136,7 +136,7 @@ function InternshipDetails() {
   // their application page. They do NOT mark the internship as
   // applied; the student does that themselves once they're actually
   // done, using the Apply button above.
-  const handleContactByEmail = () => {
+  const getMailtoLink = () => {
     const email = internship?.company?.contact_email;
     if (!email) return;
 
@@ -147,7 +147,7 @@ function InternshipDetails() {
       `Dear ${internship?.company?.name},\n\nI am seeking a SIWES placement in ${internship?.title}. Please find my CV attached.\n\nThank you.`
     );
 
-    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    return `mailto:${email}?subject=${subject}&body=${body}`;
   };
 
   const handleContactOnSite = () => {
@@ -295,10 +295,15 @@ function InternshipDetails() {
 
         <div className="action-buttons">
           {email && (
-            <button className="contact-btn" onClick={handleContactByEmail}>
-              <i className="fas fa-envelope icon"></i> Email {internship.company?.name}
-            </button>
-          )}
+        <a
+          className="contact-btn"
+          href={getMailtoLink()}
+          target="_blank"
+          rel="noreferrer"
+        >
+         <i className="fas fa-envelope icon"></i> Email {internship.company?.name}
+        </a>
+      )}
 
           {!email && applicationUrl && (
             <button className="contact-btn" onClick={handleContactOnSite}>
