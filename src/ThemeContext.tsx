@@ -12,22 +12,34 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const STORAGE_KEY = "naijaintern_theme";
 
-const getInitialTheme = (): Theme => {
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if (saved === "light" || saved === "dark") return saved;
 
-  // No saved preference yet: fall back to the user's system setting
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  return prefersDark ? "dark" : "light";
+const getInitialTheme = (): Theme => {
+  const navigation = performance.getEntriesByType(
+    "navigation"
+  )[0] as PerformanceNavigationTiming | undefined;
+
+  // Preserve the selected theme on a page refresh
+  if (navigation?.type === "reload") {
+    const saved = sessionStorage.getItem(STORAGE_KEY);
+
+    if (saved === "light" || saved === "dark") {
+      return saved;
+    }
+  }
+
+  // New visit: always start in light mode
+  return "light";
 };
+
+
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem(STORAGE_KEY, theme);
-  }, [theme]);
+  document.documentElement.setAttribute("data-theme", theme);
+  sessionStorage.setItem(STORAGE_KEY, theme);
+}, [theme]);
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
