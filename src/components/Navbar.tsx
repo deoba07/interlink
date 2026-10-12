@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import { useState } from "react";
 import { useTheme } from "../ThemeContext";
 import "./Navbar.css";
-import NaijaIntern from "../assets/NaijaIntern.jpeg";
+import NaijaIntern from "../assets/Naijaintern.jpeg";
 
 function Navbar() {
   const navigate = useNavigate();
