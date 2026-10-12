@@ -1,0 +1,127 @@
+/* Shared by ForgotPassword and ResetPassword */
+
+.simple-auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 15px;
+  background: #f1f5f9;
+}
+
+.simple-auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 32px 28px;
+  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.1);
+}
+
+.simple-auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.simple-auth-card h1 {
+  font-size: 1.5rem;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+
+.simple-auth-text {
+  color: #475569;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.simple-auth-card label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.simple-auth-card input[type="email"],
+.simple-auth-card input[type="password"],
+.simple-auth-card input[type="text"] {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #1e293b;
+  font-size: 16px; /* 16px stops iPhone Safari zooming in on focus */
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.simple-auth-card input:focus-visible {
+  border-color: #2563eb;
+  background: #ffffff;
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.simple-auth-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500 !important;
+  color: #475569 !important;
+  cursor: pointer;
+}
+
+.simple-auth-btn {
+  margin-top: 6px;
+  width: 100%;
+  padding: 14px;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.simple-auth-btn:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.simple-auth-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.simple-auth-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.simple-auth-btn:focus-visible {
+  outline: 2px solid #1d4ed8;
+  outline-offset: 2px;
+}
+
+.simple-auth-link {
+  display: inline-block;
+  margin-top: 8px;
+  text-align: center;
+  color: #2563eb;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.simple-auth-link:hover {
+  text-decoration: underline;
+}
+
+.simple-auth-link:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-radius: 4px;
+}

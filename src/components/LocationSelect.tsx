@@ -11,6 +11,7 @@ type Props = {
 export default function LocationSelect({ value, onChange, className }: Props) {
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState("");
+  const [highlighted, setHighlighted] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
 
   // close when clicking outside or pressing Escape
@@ -34,10 +35,28 @@ export default function LocationSelect({ value, onChange, className }: Props) {
     l.label.toLowerCase().includes(filter.toLowerCase())
   );
 
+  useEffect(() => {
+     setHighlighted(0);
+  }, [filter, open]);
+
+
   const choose = (v: string) => {
     onChange(v);
     setOpen(false);
     setFilter("");
+  };
+
+  const onFilterkeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setHighlighted((h) => Math.min(h + 1, shown.length - 1));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setHighlighted((h) => Math.max(h - 1, 0));
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      if (shown[highlighted]) choose(shown[highlighted].value);
+    }
   };
 
   return (
@@ -61,16 +80,20 @@ export default function LocationSelect({ value, onChange, className }: Props) {
             placeholder="Type a state..."
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
+            onKeyDown={onFilterkeyDown}
             autoFocus
           />
           <ul role="listbox" className="loc-list">
-            {shown.map((l) => (
+            {shown.map((l, i) => (
               <li
                 key={l.label}
                 role="option"
                 aria-selected={l.value === value}
-                className={`loc-option ${l.value === value ? "active" : ""}`}
+                className={`loc-option ${l.value === value ? "active" : ""} ${
+                  i === highlighted ? "highlighted" : ""
+                }`}
                 onClick={() => choose(l.value)}
+                onMouseEnter={() => setHighlighted(i)}
               >
                 {l.label}
               </li>

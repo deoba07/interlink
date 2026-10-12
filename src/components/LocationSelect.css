@@ -147,6 +147,10 @@
   font-weight: 600;
 }
 
+.loc-option.highlighted {
+  background-color: #eef2ff;
+}
+
 .loc-empty {
   padding: 0.75rem;
   text-align: center;

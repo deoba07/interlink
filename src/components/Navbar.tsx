@@ -13,6 +13,7 @@ function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("naijaintern_cv_draft"); // clear any saved CV draft too
     toast.success("Logged out successfully.");
     navigate("/");
   };

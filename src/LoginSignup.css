@@ -26,7 +26,7 @@
 
   background-image:
     linear-gradient(135deg, rgba(37, 99, 235, 0.45), rgba(29, 78, 216, 0.55)),
-    url('./assets/formbg3.png');
+    url('./assets/image.webp'); /* Crisp, high-quality background image asset */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

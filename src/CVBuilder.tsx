@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { pdf } from "@react-pdf/renderer";
 import { toast } from "react-hot-toast";
 import "./CVBuilder.css";
 import CVPreview from "./CVPreview";
-import CVDocument from "./components/CVDocument";
 import Sidebar from "./components/Sidebar";
 
 
@@ -134,9 +132,16 @@ function CVBuilder() {
 
 const handleDownload = async () => {
   try {
+    const [{ pdf }, { default: CVDocument }] = await Promise.all([
+      import("@react-pdf/renderer"),
+      import("./components/CVDocument"),
+    ]);
+
     const blob = await pdf(
       <CVDocument cvData={cvData} template={template} />
     ).toBlob();
+
+    // ...rest stays exactly the same (fileName, share sheet, desktop download, toasts)
 
     const fileName = cvData.fullName
       ? `${cvData.fullName.replace(/\s+/g, "_")}_CV.pdf`

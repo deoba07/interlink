@@ -122,7 +122,7 @@ function LoginSignup() {
   };
 
   const handleForgotPassword = () => {
-    toast("Password reset isn't set up yet — reach out to support for now.");
+    navigate("/forgot-password");
   };
 
   return (

@@ -1,22 +1,31 @@
+import ProtectedRoute from "./components/ProtectedRoutes";
+import {lazy, Suspense} from "react";
+
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
-import LandingPg from "./LandingPg";
-import InternshipDetails from "./InternshipDetails";
-import Opportunities from "./Opportunities";
-import LoginSignup from "./LoginSignup";
-import CVBuilder from "./CVBuilder";
-import Guide from "./Guide";
-import Saved from "./Saved";
-import Applied from "./Applied";
-import Profile from "./Profile";
-import ProtectedRoute from "./components/ProtectedRoutes";
+const LandingPg = lazy(() => import  ("./LandingPg"));
+const InternshipDetails = lazy(() => import("./InternshipDetails"));
+const Opportunities = lazy(() => import("./Opportunities"));
+const LoginSignup = lazy(() => import("./LoginSignup"));
+const CVBuilder = lazy(() => import("./CVBuilder"));
+const Guide = lazy(() => import("./Guide"));
+const Saved = lazy(() => import("./Saved"));
+const Applied = lazy(() => import("./Applied"));
+const Profile = lazy(() => import("./Profile"));
+  const ForgotPassword = lazy(() => import("./ForgotPassword"));
+  const ResetPassword = lazy(() => import("./ResetPassword"));
+
+
 
 function App() {
   return (
     <BrowserRouter>
 
       <Toaster position="top-right" />
+
+      <Suspense fallback={<div className="loading">Loading...</div>}>
 
       <Routes>
         <Route path="/" element={<LandingPg />} />
@@ -28,7 +37,11 @@ function App() {
         <Route path="/Profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/opportunities" element={<Opportunities />} />
         <Route path="/internship/:id" element={<InternshipDetails />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+       <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
+
+      </Suspense>
 
     </BrowserRouter>
   );
