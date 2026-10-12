@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import { useState } from "react";
 import { useTheme } from "../ThemeContext";
 import "./Navbar.css";
-import NaijaIntern from "../assets/Naijaintern.jpeg";
+import Naijaintern from "../assets/Naijaintern.jpeg";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -55,7 +55,7 @@ function Navbar() {
       <div className="nav-top-row">
         <h2 className="nav-brand">NaijaIntern</h2>
         <img
-          src={NaijaIntern}
+          src={Naijaintern}
           alt="NaijaIntern Logo"
           className="nav-logo"
         />
