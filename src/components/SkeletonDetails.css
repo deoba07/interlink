@@ -10,7 +10,7 @@
     width:80px;
     height:80px;
     border-radius:50%;
-    background:#e5e7eb;
+    background:var(--border);
     position:relative;
     overflow:hidden;
 }
@@ -18,7 +18,7 @@
 .skeleton-heading{
     width:180px;
     height:22px;
-    background:#e5e7eb;
+    background:var(--border);
     border-radius:8px;
     position:relative;
     overflow:hidden;
@@ -28,7 +28,7 @@
 .skeleton-line{
     width:100%;
     height:14px;
-    background:#e5e7eb;
+    background:var(--border);
     border-radius:8px;
     position:relative;
     overflow:hidden;
@@ -56,7 +56,7 @@
     width:150px;
     height:46px;
     border-radius:10px;
-    background:#e5e7eb;
+    background:var(--border);
     position:relative;
     overflow:hidden;
 }
@@ -78,8 +78,31 @@
     animation:shimmer 1.2s infinite;
 }
 
+[data-theme="dark"] .skeleton-company-logo::after,
+[data-theme="dark"] .skeleton-line::after,
+[data-theme="dark"] .skeleton-heading::after,
+[data-theme="dark"] .skeleton-btn::after{
+    /* A full-white sweep is too harsh against a near-black base in
+       dark mode, so the shimmer is dimmer here than in light mode. */
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.12),
+        transparent
+    );
+}
+
 @keyframes shimmer{
     100%{
         transform:translateX(100%);
     }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-company-logo::after,
+  .skeleton-line::after,
+  .skeleton-heading::after,
+  .skeleton-btn::after {
+    animation: none;
+  }
 }
