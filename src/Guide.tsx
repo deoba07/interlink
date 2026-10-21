@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Guide.css";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 
 type Step = {
@@ -137,6 +138,7 @@ export default function Guide() {
         </div>
       </section>
     </div>
+      <Footer />
     </>
   );
 }

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function LoginSignup() {
   const navigate = useNavigate();
@@ -138,7 +139,7 @@ function LoginSignup() {
 
         <div
           className="form-column login-slot"
-          {...(!isLogin ? ({ inert: "" } as any) : {})}
+          inert={!isLogin}
         >
           <form className="auth-form" onSubmit={handleLogin}>
             <h2>Login</h2>
@@ -221,7 +222,7 @@ function LoginSignup() {
 
         <div
           className="form-column signup-slot"
-          {...(isLogin ? ({ inert: "" } as any) : {})}
+          inert={isLogin}
         >
           <form className="auth-form" onSubmit={handleSignup}>
             <h2>Create Account</h2>
@@ -361,6 +362,7 @@ function LoginSignup() {
         </div>
       </div>
     </div>
+    <Footer />
     </>
   );
 }

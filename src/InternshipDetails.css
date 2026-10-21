@@ -223,6 +223,15 @@
         overflow-x: hidden;
     }
 
+    .company-logo {
+    width: 134px;
+    height: 134px;
+    flex-shrink: 0;        /* stops flex from squeezing it */
+    align-self: flex-start; /* stops it stretching to the row's height */
+    object-fit: contain;
+  }
+
+
     .details-content {
         width: 100%;
         max-width: 100%;

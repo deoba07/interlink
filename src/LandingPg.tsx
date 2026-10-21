@@ -5,6 +5,7 @@ import InternshipCard from "./InternshipCard";
 import SkeletonCard from "./components/SkeletonCard";
 import Navbar from "./components/Navbar";
 import LocationSelect from "./components/LocationSelect";
+import Footer from "./components/Footer";
 
 type Company = {
   id: number;
@@ -31,7 +32,7 @@ function LandingPg() {
   const [location, setLocation] = useState("");
   const [featuredInternships, setFeaturedInternships] = useState<Internship[]>([]);
 
-  
+
 
   const [loading, setLoading] = useState(true);
 
@@ -57,21 +58,13 @@ function LandingPg() {
   const handleSearch = (e: React.FormEvent) => {
   e.preventDefault();
 
-  console.log("HANDLE SEARCH FIRED");
-
   const trimmedSearch = search.trim();
   const trimmedLocation = location.trim();
 
-  console.log("Search:", trimmedSearch);
-  console.log("Location:", trimmedLocation);
-
   if (!trimmedSearch && !trimmedLocation) {
-    console.log("EMPTY SEARCH — SHOULD STOP");
     toast.error("Please enter a course, role, or location.");
     return;
   }
-
-  console.log("VALID SEARCH — NAVIGATING");
 
   navigate(
     `/opportunities?search=${encodeURIComponent(trimmedSearch)}&location=${encodeURIComponent(trimmedLocation)}`
@@ -84,7 +77,7 @@ function LandingPg() {
 
       <Navbar />
 
-      
+
       <div className="hero-section">
 
         <span className="text-spanh">
@@ -92,7 +85,7 @@ function LandingPg() {
         </span>
 
         <h1>Find Internship Opportunities That Match Your Course</h1>
-        
+
 
         <p>
           Every year, thousands of Nigerian students search for internships that fit their course of study.
@@ -124,7 +117,7 @@ function LandingPg() {
 </form>
       </div>
 
-      
+
       <div className="opportunities-header">
         <div>
           <h3>Featured Opportunities</h3>
@@ -180,6 +173,8 @@ function LandingPg() {
         </div>
 
       </div>
+
+      <Footer />
 
     </div>
   );

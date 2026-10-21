@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Sidebar from "./components/Sidebar";
 import "./Profile.css";
 import SkeletonProfile from "./components/SkeletonProfile";
+import Footer from "./components/Footer";
 
 
 type ProfileData = {
@@ -119,6 +120,7 @@ function Profile() {
             </div>
           </>
         )}
+        <Footer />
       </main>
 
     </div>

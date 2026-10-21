@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import { FaRegBookmark } from "react-icons/fa";
 import SkeletonCard from "./components/SkeletonCard";
 import "./Saved.css";
+import Footer from "./components/Footer";
 
 type Company = {
   id: number;
@@ -83,7 +84,7 @@ function Saved() {
 
       {/* Class added instead of inline styles */}
       <main className={`opportunities-content ${collapsed ? "collapsed" : ""}`}>
-        <h2>Saved Internships</h2>
+        <h2>Saved Internships</h2> <br></br>
         {loading ? (
           <div className="cards-grid">
             {Array.from({ length: 6 }).map((_, index) => (
@@ -108,6 +109,7 @@ function Saved() {
             ))}
           </div>
         )}
+        <Footer />
       </main>
     </div>
   );

@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 import Sidebar from "./components/Sidebar";
 import "./InternshipDetails.css";
 import SkeletonDetails from "./components/SkeletonDetails";
+import Footer from "./components/Footer";
 
 
 type Company = {
@@ -368,6 +369,7 @@ function InternshipDetails() {
             </a>
           </div>
         )}
+        <Footer />
       </main>
     </div>
   );

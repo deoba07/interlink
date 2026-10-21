@@ -4,6 +4,7 @@ import InternshipCard from "./InternshipCard";
 import { toast } from "react-hot-toast";
 import { FaRegCheckCircle } from "react-icons/fa";
 import SkeletonCard from "./components/SkeletonCard";
+import Footer from "./components/Footer";
 
 type Company = {
   id: number;
@@ -37,9 +38,6 @@ function Applied() {
       });
 
       const data = await res.json();
-
-      console.log("Status:", res.status);
-      console.log("Applied internships:", data);
 
       setAppliedInternships(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -93,7 +91,7 @@ function Applied() {
           transition: "0.3s ease",
         }}
       >
-        <h2>Applied Internships</h2>
+        <h2>Applied Internships</h2> <br></br>
 
        {loading ? (
   <div className="cards-grid">
@@ -121,6 +119,7 @@ function Applied() {
     ))}
   </div>
 )}
+ <Footer />
       </main>
     </div>
   );

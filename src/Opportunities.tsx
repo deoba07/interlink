@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import InternshipCard from "./InternshipCard";
 import SkeletonCard from "./components/SkeletonCard";
 import LocationSelect from "./components/LocationSelect";
+import Footer from "./components/Footer";
 
 
 type Company = {
@@ -233,6 +234,7 @@ useEffect(() => {
 
   </div>
    )}
+   <Footer />
       </main>
     </div>
   );
