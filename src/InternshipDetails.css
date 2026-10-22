@@ -224,13 +224,17 @@
     }
 
     .company-logo {
-    width: 134px;
-    height: 134px;
-    flex-shrink: 0;        /* stops flex from squeezing it */
-    align-self: flex-start; /* stops it stretching to the row's height */
+    width: 114px;
+    height: 114px;
+    flex-shrink: 0;
+    align-self: flex-start;
     object-fit: contain;
   }
 
+  .header-info h1 {
+    font-size: 1.4rem;     /* smaller title so it fits a phone screen */
+    line-height: 1.25;
+  }
 
     .details-content {
         width: 100%;
